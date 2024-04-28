@@ -1,14 +1,18 @@
-import React from "react";
-import { View, StatusBar, SafeAreaView, StyleSheet, Image } from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import React, {useState} from "react";
+import { View, StatusBar, SafeAreaView, StyleSheet, Image, Animated, Dimensions } from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome5';
 import Hamburger from "../Hamburger/Hamburger";
+import ToggleMenu from "../ToggleMenu/ToggleMenu";
+// import toggleMenu from "../../Functions/toggleMenu";
+
+const screenWidth = Dimensions.get('window').width;
+
 
 const styles = StyleSheet.create({
   container: {
-    position: "absolute",
-    top: 0,
+    // position: "absolute",
     top: StatusBar.currentHeight || 0,
-    marginTop: StatusBar.currentHeight || 0,
+    marginTop: 0,
     backgroundColor: "#17B5FF",
     width: "100%",
     padding: 15,
@@ -16,7 +20,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignContent: "center",
-    // flex: 1
+    // marginBottom: 40
   },
   logoContainer: {
     width: 175,
@@ -34,13 +38,28 @@ const styles = StyleSheet.create({
   }
 });
 
-function Menu(){
+
+function Menu({currentPage, changePage}){
+      const [menuWidth, setMenuWidth] = useState(new Animated.Value(screenWidth));
+
+    const toggleMenu = () => {
+        const toValue = menuWidth._value === 0 ? screenWidth : 0;
+        Animated.timing(menuWidth, {
+            toValue,
+            duration: 300,
+            useNativeDriver: false
+        }).start();
+    }
+
     return (
-       <SafeAreaView  style={styles.container}>
-                <View><Hamburger/></View>
-                <View style={styles.logoContainer}><Image source={require('../../../assets/modernclinicmenu.png')} style={styles.logo}/></View>
-                <View style={styles.account}><Icon name="user" size={30} color="white" /></View>
+      <>
+        <SafeAreaView  style={styles.container}>
+         <View><Hamburger onPress={toggleMenu}/></View>
+         <View style={styles.logoContainer}><Image source={require('../../../assets/modernclinicmenu.png')} style={styles.logo}/></View>
+         <View style={styles.account}><Icon name="user-alt" size={30} color="white" /></View>
         </SafeAreaView >
+        <ToggleMenu currentPage={currentPage} changePage={changePage} toggleFun={toggleMenu} menuWidth={menuWidth}/>
+      </>
     );
 }
 

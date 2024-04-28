@@ -1,11 +1,15 @@
 import React from "react";
-import { Text, View } from "react-native";
+import { Text, View, ScrollView } from "react-native";
+import MyCarousel from "../../Components/Carousel/MyCarousel";
+import UpcommingVisitComponent from "../../Components/UpcommingVisitComponent/UpcommingVisitComponent";
 
-function HomePage() {
+function HomePage({setPage}) {
     return (
-        <View>
-            <Text>To jest mój komponent!</Text>
-        </View>
+        <ScrollView>
+            <MyCarousel/>
+            <UpcommingVisitComponent setPage = {setPage}/>
+        </ScrollView>
     );
 }
+
 export default HomePage;
