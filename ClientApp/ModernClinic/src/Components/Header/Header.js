@@ -11,7 +11,7 @@ const styles = StyleSheet.create({
         fontSize: 16, 
         textTransform: 'uppercase',
         textAlign: 'center',
-        color: "rgba(23, 181, 255, 0.8)"
+        color: "rgba(23, 181, 255, 0.8)",
     },
     icon: {
 
@@ -23,22 +23,42 @@ const styles = StyleSheet.create({
         backgroundColor: 'rgba(98, 98, 98, 0.4)',
         marginLeft: "auto",
         marginRight: "auto",
+    },
+    marginTop: {
+        marginTop: 40
     }
 })
 
-export default function Header({content, setPage}){
+export default function Header({content, setPage, page}){
+    console.log(content)
     return (
-        <TouchableOpacity onPress={() => setPage("UpcommingVisitPage")}>
+        <>
+            {
+            page !== undefined && 
+            <TouchableOpacity onPress={() => setPage(page)}>
             <Text style={styles.headerContent}>
                 {content}
-                &nbsp;
+                <>&nbsp;
                 <Icon name='chevron-right' style={styles.icon} size={15} color="rgba(23, 181, 255, 0.8)" /> 
                 &nbsp;
                 <Icon name='chevron-right' style={styles.icon} size={15} color="rgba(23, 181, 255, 0.6)" /> 
                 &nbsp;
-                <Icon name='chevron-right' style={styles.icon} size={15} color="rgba(23, 181, 255, 0.4)" /> 
+                <Icon name='chevron-right' style={styles.icon} size={15} color="rgba(23, 181, 255, 0.4)" />
+                </>
             </Text>
             <View style={styles.bar}></View>
         </TouchableOpacity>
+        }
+
+                  {
+            page === undefined && 
+            <View style={styles.marginTop}>
+            <Text style={styles.headerContent}>
+                {content}
+            </Text>
+            <View style={styles.bar}></View>
+        </View>
+        }
+        </>
     )
 }

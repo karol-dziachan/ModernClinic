@@ -2,24 +2,11 @@ import React, {useState, useEffect} from "react";
 import { StyleSheet, Text, View, TouchableOpacity, Dimensions } from "react-native";
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import CancelVisitDialog from "../CancelVisitDialog/CancelVisitDialog";
+import RateVisitDialog from "../RateVisitDialag/RateVisitDialog";
 
 const { height: screenHeight, width: screenWidth } = Dimensions.get('window');
 
-const upcommingVisitData = {
-    doctor: {
-        name: "dr Anna Lewandowska",
-        speciality: "kardiolog",
-        photo: null 
-    },
-    visit: {
-        id: 1,
-        date: '30.06.2024',
-        time: '10:30-11:00',
-        service: 'Konsultacja kardiologiczna', 
-        place: 'ModernClinic POMORSKA, ul. Pomorska 16/39'
-    },
-
-}
+ 
 
 const styles = StyleSheet.create({
     container: {
@@ -111,15 +98,20 @@ const styles = StyleSheet.create({
   servicePlace: {
     fontFamily: "Roboto", 
     fontSize: 7, 
+  },
+  pastVisit: {
+    opacity: .6
   }
 })
 
-export default function UpcommingVisit(){
+export default function UpcommingVisit({upcommingVisitData}){
 
     const [dialogVisible, setDialogVisible] = useState(false);
+    const [rateDialogVisible, setRateDialogVisible] = useState(false);
 
         useEffect(() => {
-        setDialogVisible(false); // Resetujemy stan dialogu przy każdej zmianie isVisible
+        setDialogVisible(false); 
+        setRateDialogVisible(false); 
     }, []);
 
     const openDialog = () => {
@@ -131,10 +123,19 @@ export default function UpcommingVisit(){
         setDialogVisible(false);
     };
 
+    const openRateDialog = () => {
+        console.log('dialogVisible ', dialogVisible)
+        setRateDialogVisible(true);
+    };
+
+    const closeRateDialog = () => {
+        setRateDialogVisible(false);
+    };
+
 
     return (
         <>
-        <View style={styles.container}>
+        <View style={[styles.container, upcommingVisitData.isPast && styles.pastVisit]}>
             <View style={styles.flex}>
                 <View style={upcommingVisitData.doctor.photo !== null ? styles.photoContainer : styles.placeholderContainer}>
                     <Icon name="user-alt" size={70} color="white" />
@@ -149,16 +150,30 @@ export default function UpcommingVisit(){
                    </View>
                 </View>
             </View>
-            <View style={styles.buttonContainer}>
-                <TouchableOpacity style={styles.button} onPress={openDialog}>
-                    <Text style={styles.buttonText}>
-                        Odwołaj wizytę
-                    </Text>
-                </TouchableOpacity>
-            </View>
-        </View>  
-             <CancelVisitDialog visitId={upcommingVisitData.visit.id} isVisible={dialogVisible} setModalVisible={closeDialog} />
+            {
+                !upcommingVisitData.isPast && 
+                <View style={styles.buttonContainer}>
+                    <TouchableOpacity style={styles.button} onPress={openDialog}>
+                        <Text style={styles.buttonText}>
+                            Odwołaj wizytę
+                        </Text>
+                    </TouchableOpacity>
+                </View>
+            }
+            {
+                upcommingVisitData.isPast && 
+                <View style={styles.buttonContainer}>
+                    <TouchableOpacity style={styles.button} onPress={openRateDialog}>
+                        <Text style={styles.buttonText}>
+                            Oceń wizytę
+                        </Text>
+                    </TouchableOpacity>
+                </View>
+            }
 
+        </View>  
+        <CancelVisitDialog visitId={upcommingVisitData.visit.id} isVisible={dialogVisible} setModalVisible={closeDialog} />
+        <RateVisitDialog  visitId={upcommingVisitData.visit.id} isVisible={rateDialogVisible} setModalVisible={closeRateDialog}/>
         </>
     )
 }

@@ -61,7 +61,7 @@ function ToggleMenu({currentPage, changePage, toggleFun, menuWidth}){
                     <Text style={styles.menuItem}>Nasi specjaliści</Text>
                 </TouchableOpacity>
                 <Animated.View style={[styles.bar, { width: menuWidth }]} />
-                <TouchableOpacity style={styles.menuItemContainer} onPress={() => handlePageChange('Kontakt')}>
+                <TouchableOpacity style={styles.menuItemContainer} onPress={() => handlePageChange('ContactPage')}>
                     <Text style={styles.menuItem}>Kontakt</Text>
                 </TouchableOpacity>
                 <Animated.View style={[styles.bar, { width: menuWidth }]} />

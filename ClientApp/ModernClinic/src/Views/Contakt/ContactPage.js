@@ -1,5 +1,6 @@
 import React from "react";
 import { StyleSheet, View } from "react-native";
+import Menu from "../../Components/Menu/Menu";
 
 const styles = StyleSheet.create({
     test: {
@@ -9,9 +10,10 @@ const styles = StyleSheet.create({
     }
 })
 
-export default function ContactPage(){
+export default function ContactPage({currentPage, setPage}){
     return (
         <View>
+            <Menu currentPage={currentPage} changePage={setPage} />
             <View style={styles.test}></View>
         </View>
     )

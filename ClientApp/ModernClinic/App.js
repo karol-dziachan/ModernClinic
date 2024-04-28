@@ -6,6 +6,11 @@ import GetFonts from './src/Loaders/FontLoader/GetFonts';
 import ToggleMenu from './src/Components/ToggleMenu/ToggleMenu';
 import React, { useState } from 'react';
 import ContactPage from './src/Views/Contakt/ContactPage';
+import ComplaintsPage from './src/Views/ComplaintsPage/ComplaintsPage';
+import FAQPage from './src/Views/FAQPage/FAQPage';
+import PrivacyPolicyPage from './src/Views/PrivacyPolicyPage/PrivacyPolicyPage';
+import RulesPage from './src/Views/RulesPage/RulesPage';
+import UpcommingVisitPage from './src/Views/UpcommingVisitPage/UpcommingVisitPage';
 
 export default function App() {
   var fontsLoaded = GetFonts();
@@ -21,9 +26,15 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      <View><Menu currentPage={currentPage} changePage={changePage} /></View>
-      {currentPage === 'HomePage' && <HomePage setPage={setCurrentPage} />}
-      {currentPage === 'ContactPage' && <ContactPage />}
+      {currentPage === 'HomePage' && <HomePage currentPage={currentPage} setPage={setCurrentPage} />}
+      {currentPage === 'ContactPage' && <ContactPage currentPage={currentPage} setPage={setCurrentPage} />}
+      {currentPage === 'UpcommingVisitPage' && <UpcommingVisitPage currentPage={currentPage} setPage={setCurrentPage} />}
+
+      {/* useful links */}
+      {currentPage === 'ComplaintsPage' && <ComplaintsPage currentPage={currentPage} setPage={setCurrentPage} />}
+      {currentPage === 'FAQPage' && <FAQPage currentPage={currentPage} setPage={setCurrentPage} />}
+      {currentPage === 'PrivacyPolicyPage' && <PrivacyPolicyPage currentPage={currentPage} setPage={setCurrentPage} />}
+      {currentPage === 'RulesPage' && <RulesPage currentPage={currentPage} setPage={setCurrentPage} />}
     </View>
   );
 }
@@ -34,6 +45,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     flexDirection: "column",
-    paddingBottom: 60
+    paddingBottom: 45
   },
 });

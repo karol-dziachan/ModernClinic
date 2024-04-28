@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
 
 
 function Menu({currentPage, changePage}){
-      const [menuWidth, setMenuWidth] = useState(new Animated.Value(screenWidth));
+      const [menuWidth, setMenuWidth] = useState(0);
 
     const toggleMenu = () => {
         const toValue = menuWidth._value === 0 ? screenWidth : 0;

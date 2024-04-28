@@ -52,11 +52,11 @@ const styles = StyleSheet.create({
     // bottom: 0,
     // right: 0,
   },
-  sliderContentContainer: {
+  sliderContentContainerBlur: {
     // position: "fixed",
     // bottom: 250,
     left: 0,
-    height: 200,
+    height: 400,
     // bottom: 0,
     top: 0.8*screenHeight-260, 
     padding: 15,
@@ -159,7 +159,7 @@ const MyCarousel = () => {
         <Image source={item.pic} style={styles.slidePic}/>
       <View style={styles.sliderContentContainer}>
           <BlurView
-            style={styles.absolute}
+            style={styles.sliderContentContainerBlur}
             tint="light"
             intensity={50}
           >
