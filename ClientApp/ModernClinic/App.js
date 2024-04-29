@@ -1,9 +1,9 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 import HomePage from './src/Views/HomePage/HomePage';
-import Menu from './src/Components/Menu/Menu';
+import Menu from './src/Components/MenuComponents/Menu/Menu';
 import GetFonts from './src/Loaders/FontLoader/GetFonts';
-import ToggleMenu from './src/Components/ToggleMenu/ToggleMenu';
+import ToggleMenu from './src/Components/MenuComponents/ToggleMenu/ToggleMenu';
 import React, { useState } from 'react';
 import ContactPage from './src/Views/Contakt/ContactPage';
 import ComplaintsPage from './src/Views/ComplaintsPage/ComplaintsPage';
@@ -11,6 +11,9 @@ import FAQPage from './src/Views/FAQPage/FAQPage';
 import PrivacyPolicyPage from './src/Views/PrivacyPolicyPage/PrivacyPolicyPage';
 import RulesPage from './src/Views/RulesPage/RulesPage';
 import UpcommingVisitPage from './src/Views/UpcommingVisitPage/UpcommingVisitPage';
+import SpecialistsPage from './src/Views/Specialists/SpecialistsPage';
+import OffersPage from './src/Views/OffersPage/OffersPage';
+import BookVisitPage from './src/Views/BookVisitPage/BookVisitPage';
 
 export default function App() {
   var fontsLoaded = GetFonts();
@@ -29,6 +32,9 @@ export default function App() {
       {currentPage === 'HomePage' && <HomePage currentPage={currentPage} setPage={setCurrentPage} />}
       {currentPage === 'ContactPage' && <ContactPage currentPage={currentPage} setPage={setCurrentPage} />}
       {currentPage === 'UpcommingVisitPage' && <UpcommingVisitPage currentPage={currentPage} setPage={setCurrentPage} />}
+      {currentPage === 'SpecialistsPage' && <SpecialistsPage currentPage={currentPage} setPage={setCurrentPage} />}
+      {currentPage === 'OffersPage' && <OffersPage currentPage={currentPage} setPage={setCurrentPage} />}
+      {currentPage === 'BookVisitPage' && <BookVisitPage currentPage={currentPage} setPage={setCurrentPage} />}
 
       {/* useful links */}
       {currentPage === 'ComplaintsPage' && <ComplaintsPage currentPage={currentPage} setPage={setCurrentPage} />}

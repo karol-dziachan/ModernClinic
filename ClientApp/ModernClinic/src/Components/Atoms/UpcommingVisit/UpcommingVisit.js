@@ -1,12 +1,10 @@
 import React, {useState, useEffect} from "react";
 import { StyleSheet, Text, View, TouchableOpacity, Dimensions } from "react-native";
 import Icon from 'react-native-vector-icons/FontAwesome5';
-import CancelVisitDialog from "../CancelVisitDialog/CancelVisitDialog";
-import RateVisitDialog from "../RateVisitDialag/RateVisitDialog";
+import CancelVisitDialog from "../../Dialogs/CancelVisitDialog/CancelVisitDialog";
+import RateVisitDialog from "../../Dialogs/RateVisitDialag/RateVisitDialog";
 
 const { height: screenHeight, width: screenWidth } = Dimensions.get('window');
-
- 
 
 const styles = StyleSheet.create({
     container: {

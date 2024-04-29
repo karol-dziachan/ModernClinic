@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import { View, StatusBar, SafeAreaView, StyleSheet, Image, Animated, Dimensions } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import Hamburger from "../Hamburger/Hamburger";
@@ -40,7 +40,8 @@ const styles = StyleSheet.create({
 
 
 function Menu({currentPage, changePage}){
-      const [menuWidth, setMenuWidth] = useState(0);
+      const [menuWidth, setMenuWidth] = useState(new Animated.Value(screenWidth));
+      const [initMenu, setInitMenu] = useState(false);
 
     const toggleMenu = () => {
         const toValue = menuWidth._value === 0 ? screenWidth : 0;
@@ -51,11 +52,18 @@ function Menu({currentPage, changePage}){
         }).start();
     }
 
+      useEffect(() => {
+        if(!initMenu){
+          toggleMenu();
+          setInitMenu(true);
+        }
+    });
+
     return (
       <>
         <SafeAreaView  style={styles.container}>
          <View><Hamburger onPress={toggleMenu}/></View>
-         <View style={styles.logoContainer}><Image source={require('../../../assets/modernclinicmenu.png')} style={styles.logo}/></View>
+         <View style={styles.logoContainer}><Image source={require('../../../../assets/modernclinicmenu.png')} style={styles.logo}/></View>
          <View style={styles.account}><Icon name="user-alt" size={30} color="white" /></View>
         </SafeAreaView >
         <ToggleMenu currentPage={currentPage} changePage={changePage} toggleFun={toggleMenu} menuWidth={menuWidth}/>

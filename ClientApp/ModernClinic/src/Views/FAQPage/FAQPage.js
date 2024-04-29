@@ -1,21 +1,48 @@
-import React from "react";
+import React, {useState} from "react";
 
-import { Text } from "react-native";
-import Menu from "../../Components/Menu/Menu";
+import { Text, ScrollView } from "react-native";
+import Menu from "../../Components/MenuComponents/Menu/Menu";
+import Header from "../../Components/Header/Header";
+import Accordion from "../../Components/Atoms/Accordion/Accordion";
+
+const tabData = [
+    {
+        Header: '1.	Czy mogę używać aplikacji Modern Clinic bez wcześniejszej rejestracji?',
+        Content: <Text>Nie, aby móc korzystać z pełnych funkcji aplikacji, konieczna jest rejestracja oraz założenie konta.</Text>
+    },
+    {
+        Header: '2.	Jak mogę zapisać się na wizytę lekarską przez aplikację Modern Clinic?',
+        Content: <Text>Po zalogowaniu się do aplikacji, przejdź do sekcji "Umów wizytę" i postępuj zgodnie z instrukcjami, wybierając preferowany termin i specjalistę, a także podając informacje czy wizyta jest prywatna czy na NFZ.</Text>
+    },
+    {
+        Header: '3.	Czy mogę zamawiać usługi medyczne do domu przez aplikację?',
+        Content: <Text>Tak, aplikacja Modern Clinic oferuje możliwość zamawiania usług medycznych do domu, zarówno na NFZ, jak i w formie usług prywatnych. Wystarczy przejść do odpowiedniej sekcji, wypełnić formularz zaznaczając wizytę domową, co poskutkuje umówieniem wizyty.</Text>
+    },
+    {
+        Header: '4.	Problemy z aplikacją  – co robić?',
+        Content: <Text>Jeśli masz pytania dotyczące używania aplikacji lub będziesz mieć problemy techniczne, skontaktuj się z naszym działem obsługi klienta poprzez formularz kontaktowy w aplikacji lub na podany adres e-mail. Więcej szczegółów znajdziesz w sekcji „Kontakt”.</Text>
+    },
+    {
+        Header: '5.	Czy mogę cofnąć moją zgodę na przetwarzanie danych osobowych?',
+        Content: <Text>Tak, każdy użytkownik ma prawo do wycofania się z udzielonej wcześniej zgody na przetwarzanie danych osobowych. Wystarczy skontaktować się z administratorem danych poprzez aplikację. Więcej szczegółów znajdziesz w sekcji „Kontakt”.</Text>
+    },
+    {
+        Header: '6.	Czy często zostaje aktualizowana polityka prywatności aplikacji Modern Clinic?',
+        Content: <Text>Polityka prywatności jest aktualizowana w ramach potrzeby, aby dostosować się do wprowadzanych zmian prawnych lub technologicznych. Wszyscy użytkownicy aplikacji zostaną poinformowani o istotnych zmianach poprzez powiadomienia lub na podany adres e-mail.</Text>
+    },
+    {
+        Header: '7.	Czy dane osobowe przekazywane za pośrednictwem aplikacji są bezpieczne?',
+        Content: <Text>Tak, dbamy o bezpieczeństwo danych osobowych naszych użytkowników i stosujemy odpowiednie środki techniczne i organizacyjne, aby zapewnić im maksymalną ochronę.</Text>
+    },
+]
 
 export default function FAQPage({currentPage, setPage}){
-    return (<>
+    return (<ScrollView>
      <Menu currentPage={currentPage} changePage={setPage} />
-        <Text>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed interdum suscipit mi. Aenean turpis odio, imperdiet et rhoncus at, tristique id quam. Etiam vitae risus fermentum, posuere diam vel, ullamcorper nunc. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Donec vestibulum dolor vitae ipsum ullamcorper efficitur. Donec vel lectus ac sem rutrum dapibus quis sed lectus. Praesent rutrum eget metus at placerat. Donec nisi tortor, laoreet ac augue ut, egestas placerat purus. Maecenas varius nibh ut ligula bibendum luctus. Nam vel eros magna.
-
-Sed in vestibulum enim, sed ornare justo. Vestibulum tincidunt neque vel enim ultricies egestas. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Sed congue venenatis arcu, vel lacinia elit aliquam a. Suspendisse elementum consequat elit, a efficitur augue. Mauris nibh justo, rhoncus at placerat sit amet, pretium non velit. Curabitur non dui eu tellus viverra posuere. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut scelerisque vitae neque nec finibus. Sed varius ullamcorper dui non faucibus. Pellentesque at tempus est, ullamcorper interdum lorem. Sed augue metus, venenatis et commodo non, porta et neque. Fusce lobortis euismod sem, vitae tempor ligula tincidunt id. Donec in viverra nisl. Maecenas a pretium ipsum. Etiam et tempus velit.
-
-Praesent luctus, libero ac tincidunt commodo, lacus dui laoreet orci, vel maximus arcu lectus sit amet libero. Curabitur ut lorem faucibus, cursus orci vel, pulvinar augue. Aenean tempor nulla ac tempor imperdiet. Sed eu elit luctus, egestas sem et, egestas velit. Nulla porttitor lectus et eleifend varius. Fusce vel orci lacinia, rhoncus tellus quis, semper purus. Aenean commodo velit vitae quam iaculis tempor. Sed non quam augue. Vestibulum odio eros, ultricies vitae nisl sit amet, ornare placerat diam. Aenean at sollicitudin orci. Cras lobortis orci ut nulla mattis, at tincidunt leo sagittis. Aliquam porttitor enim augue, at tincidunt erat tempus ut. Vivamus dapibus quam sed ipsum gravida ornare.
-
-Vivamus sit amet tellus at dui posuere gravida eu at neque. Integer quis rhoncus lorem. Etiam sapien elit, eleifend et mattis in, lacinia sit amet lacus. Ut ultricies vel tortor tincidunt tincidunt. Quisque a semper elit. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Duis in varius velit. Vivamus ultrices enim vel velit luctus, eu fermentum justo hendrerit. Sed congue diam ac imperdiet posuere. Phasellus sollicitudin faucibus metus eget imperdiet. Proin ultricies sem sit amet convallis fringilla.
-
-Aliquam sollicitudin mi in pellentesque aliquam. Suspendisse et vestibulum purus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Praesent at neque viverra, congue lectus in, semper ante. Sed nibh velit, euismod id sollicitudin quis, tincidunt et risus. Proin mauris est, luctus eu odio at, laoreet lacinia leo. In turpis enim, lacinia at sagittis quis, interdum id mauris. Aliquam aliquet eget enim quis vehicula. Fusce vel enim ultrices, vestibulum felis consequat, maximus augue. Nullam euismod, justo vel porta pretium, urna mi vulputate risus, sit amet porttitor sem mauris non nisl. Curabitur vel augue erat. Sed vestibulum condimentum ultricies. Etiam condimentum nisl neque, finibus vulputate ligula dictum vitae.
-        </Text>
-    </>)
+     <Header content="Polityka prywatności – ogólne zasady przetwarzania danych osobowych i ochrony prywatności w Modern Clinic" />
+     <Accordion tabData={tabData} style={{marginBottom: 30}} /> 
+     <Text style={{fontWeight:'600', textAlign: 'center', marginTop: 20, paddingLeft: 20, paddingRight: 20}}>Jeśli chcesz zadać więcej pytań, skontaktuj się z nami (szczegóły w sekcji „Kontakt”), a nasi przedstawiciele postarają się rozwiać wszelkie wątpliwości.</Text>
+     <Text style={{fontStyle: 'italic', textAlign: 'center', marginTop: 20, paddingLeft: 20, paddingRight: 20}}>Dziękujemy za korzystanie z aplikacji Modern Clinic.</Text>
+    </ScrollView>
+    )
 }

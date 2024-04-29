@@ -1,10 +1,10 @@
 import React from "react";
 import { Text, View, ScrollView } from "react-native";
 import MyCarousel from "../../Components/Carousel/MyCarousel";
-import UpcommingVisitComponent from "../../Components/UpcommingVisitComponent/UpcommingVisitComponent";
-import UseFulLinks from "../../Components/UsefulLinks/UseFulLinks";
-import Rodo from "../../Components/Rodo/Rodo";
-import Menu from "../../Components/Menu/Menu";
+import UpcommingVisitComponent from "../../Components/MainViews/UpcommingVisitComponent/UpcommingVisitComponent";
+import UseFulLinks from "../../Components/MenuComponents/UsefulLinks/UseFulLinks";
+import Rodo from "../../Components/Atoms/Rodo/Rodo";
+import Menu from "../../Components/MenuComponents/Menu/Menu";
 
 function HomePage({currentPage, setPage}) {
     return (

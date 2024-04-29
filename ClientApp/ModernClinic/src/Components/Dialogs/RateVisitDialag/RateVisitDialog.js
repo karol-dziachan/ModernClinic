@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, Modal, StyleSheet, TextInput, Dimensions } from 'react-native';
-import Header from '../Header/Header';
+import Header from '../../Header/Header';
 import { BlurView } from 'expo-blur';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
@@ -36,7 +36,7 @@ const RateVisitDialog = ({ visitId, isVisible, setModalVisible }) => {
                 <TouchableOpacity key={i} onPress={() => handleRating(i)}>
                     <Icon
                         name={i <= rating ? 'star' : 'star-o'}
-                        size={40}
+                        size={23}
                         color={i <= rating ? '#FFD700' : '#D3D3D3'}
                         style={styles.star}
                     />

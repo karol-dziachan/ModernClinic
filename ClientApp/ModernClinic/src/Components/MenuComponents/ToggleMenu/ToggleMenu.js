@@ -49,15 +49,15 @@ function ToggleMenu({currentPage, changePage, toggleFun, menuWidth}){
                     <Text style={styles.menuItem}>Strona główna</Text>
                 </TouchableOpacity>
                 <Animated.View style={[styles.bar, { width: menuWidth }]} />
-                <TouchableOpacity style={styles.menuItemContainer} onPress={() => handlePageChange('Umów wizytę')}>
+                <TouchableOpacity style={styles.menuItemContainer} onPress={() => handlePageChange('BookVisitPage')}>
                     <Text style={styles.menuItem}>Umów wizytę</Text>
                 </TouchableOpacity>
                 <Animated.View style={[styles.bar, { width: menuWidth }]} />
-                <TouchableOpacity style={styles.menuItemContainer} onPress={() => handlePageChange('Usługi')}>
+                <TouchableOpacity style={styles.menuItemContainer} onPress={() => handlePageChange('OffersPage')}>
                     <Text style={styles.menuItem}>Usługi</Text>
                 </TouchableOpacity>
                 <Animated.View style={[styles.bar, { width: menuWidth }]} />
-                <TouchableOpacity style={styles.menuItemContainer} onPress={() => handlePageChange('Nasi specjaliści')}>
+                <TouchableOpacity style={styles.menuItemContainer} onPress={() => handlePageChange('SpecialistsPage')}>
                     <Text style={styles.menuItem}>Nasi specjaliści</Text>
                 </TouchableOpacity>
                 <Animated.View style={[styles.bar, { width: menuWidth }]} />

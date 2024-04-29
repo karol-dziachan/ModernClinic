@@ -1,6 +1,6 @@
 import React from "react";
-import Header from "../Header/Header";
-import UpcommingVisit from "../UpcommingVisit/UpcommingVisit";
+import Header from "../../Header/Header";
+import UpcommingVisit from "../../Atoms/UpcommingVisit/UpcommingVisit";
 
 const upcommingVisitData = {
     isPast: false,
