@@ -1,6 +1,9 @@
 package modern.clinic.app.controller;
 
 import lombok.RequiredArgsConstructor;
+import modern.clinic.app.persistence.datatransferobjects.visit.GetAllVisitsDto;
+import modern.clinic.app.persistence.datatransferobjects.visit.GetUpcommingVisitDto;
+import modern.clinic.app.persistence.datatransferobjects.visit.PostVisitDto;
 import modern.clinic.app.persistence.entities.Visit;
 import modern.clinic.app.persistence.service.VisitService;
 import org.springframework.http.HttpStatus;
@@ -62,4 +65,35 @@ public class VisitController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
+
+    @PostMapping("/book-visit")
+    public ResponseEntity<Visit> bookVisit(@RequestBody PostVisitDto visits) {
+        Visit visit = visitsService.bookVisit(visits);
+        if (visit != null) {
+            return new ResponseEntity<>(HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @GetMapping("/get-all-visits")
+    public ResponseEntity<GetAllVisitsDto> getAllVisitsForPatient() {
+        var visits = visitsService.getAllVisits();
+        if (visits != null) {
+            return new ResponseEntity<>(visits, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @GetMapping("/get-nearest-visit")
+    public ResponseEntity<GetUpcommingVisitDto> getNearestVisitForPatient() {
+        var visit = visitsService.getTheNearestVisit();
+        if (visit != null) {
+            return new ResponseEntity<>(visit, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
 }

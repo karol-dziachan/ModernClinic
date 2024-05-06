@@ -1,10 +1,7 @@
 package modern.clinic.app.persistence.entities;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 //Offer.java
 @Entity
@@ -13,6 +10,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class Offer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

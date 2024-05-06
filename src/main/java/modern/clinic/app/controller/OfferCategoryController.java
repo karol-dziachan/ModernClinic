@@ -1,6 +1,7 @@
 package modern.clinic.app.controller;
 
 import lombok.RequiredArgsConstructor;
+import modern.clinic.app.persistence.datatransferobjects.offercategories.PostOfferCategoryDto;
 import modern.clinic.app.persistence.entities.OfferCategory;
 import modern.clinic.app.persistence.service.OfferCategoryService;
 import org.springframework.http.HttpStatus;
@@ -27,7 +28,7 @@ public class OfferCategoryController {
     }
 
     @PostMapping
-    public ResponseEntity<OfferCategory> addOfferCategory(@RequestBody OfferCategory offerCategory) {
+    public ResponseEntity<PostOfferCategoryDto> addOfferCategory(@RequestBody PostOfferCategoryDto offerCategory) {
         offerCategoryService.createOfferCategory(offerCategory);
         return new ResponseEntity<>(offerCategory, HttpStatus.CREATED);
     }

@@ -15,6 +15,8 @@ CREATE TABLE IF NOT EXISTS doctors (
     id BIGSERIAL PRIMARY KEY,
     doctor_first_name VARCHAR(50) NOT NULL,
     doctor_last_name VARCHAR(50) NOT NULL,
+    degree VARCHAR(50),
+    degree_short VARCHAR (50),
     speciality_id BIGINT NOT NULL,
     FOREIGN KEY (speciality_id) REFERENCES specialities(id)
     );
@@ -33,6 +35,7 @@ CREATE TABLE IF NOT EXISTS marks (
     title VARCHAR(50) NOT NULL,
     description VARCHAR(500) NOT NULL,
     comment VARCHAR(500) NOT NULL,
+    mark INT NOT NULL,
     doctor_id BIGINT NOT NULL,
     FOREIGN KEY (doctor_id) REFERENCES doctors(id)
     );

@@ -1,21 +1,36 @@
 package modern.clinic.app.persistence.service;
 
 // MarkService.java
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import modern.clinic.app.persistence.datatransferobjects.mark.PostMarkDto;
 import modern.clinic.app.persistence.entities.Mark;
+import modern.clinic.app.persistence.repository.DoctorRepository;
 import org.springframework.stereotype.Service;
 import modern.clinic.app.persistence.repository.MarkRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 public class MarkService {
 
     private final MarkRepository repository;
+    private final DoctorRepository doctorRepository;
 
-    public void createMark(Mark mark) {
-        repository.save(mark);
+    public void createMark(PostMarkDto mark) {
+        var doctor = doctorRepository.findById(mark.getDoctorId())  .orElseThrow(() -> new RuntimeException("Nie znaleziono specjalisty o podanym ID: " + mark.getDoctorId()));
+
+        var tempMark = Mark.builder()
+                        .title(mark.getTitle())
+                        .description(mark.getDescription())
+                        .comment(mark.getComment())
+                        .doctor(doctor)
+                .mark(mark.getMark())
+                .build();
+
+        repository.save(tempMark);
     }
 
     public List<Mark> getAll() {
@@ -32,7 +47,12 @@ public class MarkService {
     }
 
     public void deleteMark(Long id) {
-        repository.deleteById(id);
+        Optional<Mark> markOptional = repository.findById(id);
+        if (markOptional.isPresent()) {
+            repository.deleteById(id);
+        } else {
+            throw new EntityNotFoundException("Mark with id " + id + " not found");
+        }
     }
 
     public List<Mark> getMarksByDoctorId(Long id) {

@@ -1,6 +1,8 @@
 package modern.clinic.app.controller;
 
 import lombok.RequiredArgsConstructor;
+import modern.clinic.app.persistence.datatransferobjects.timetable.GetAvailableTimeTableDto;
+import modern.clinic.app.persistence.datatransferobjects.timetable.PostTimeTableDto;
 import modern.clinic.app.persistence.entities.TimeTable;
 import modern.clinic.app.persistence.service.TimeTableService;
 import org.springframework.http.HttpStatus;
@@ -26,7 +28,7 @@ public class TimeTableController {
     }
 
     @PostMapping
-    public ResponseEntity<TimeTable> addTimeTable(@RequestBody TimeTable timeTable) {
+    public ResponseEntity<PostTimeTableDto> addTimeTable(@RequestBody PostTimeTableDto timeTable) {
         timeTableService.createTimeTable(timeTable);
         return new ResponseEntity<>(timeTable, HttpStatus.CREATED);
     }
@@ -58,6 +60,16 @@ public class TimeTableController {
         if (existingTimeTable != null) {
             timeTableService.deleteTimeTable(id);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @GetMapping("/available-time-table")
+    public ResponseEntity<List<GetAvailableTimeTableDto>> getAvailableTimeTables() {
+        var data = timeTableService.getAvailableTimeTables();
+        if (data != null) {
+            return new ResponseEntity<>(data, HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }

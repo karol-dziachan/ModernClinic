@@ -2,7 +2,10 @@ package modern.clinic.app.persistence.service;
 
 
 import lombok.RequiredArgsConstructor;
+import modern.clinic.app.persistence.datatransferobjects.timetable.GetAvailableTimeTableDto;
+import modern.clinic.app.persistence.datatransferobjects.timetable.PostTimeTableDto;
 import modern.clinic.app.persistence.entities.TimeTable;
+import modern.clinic.app.utils.mappers.TimeTableMapper;
 import modern.clinic.app.persistence.repository.TimeTableRepository;
 import org.springframework.stereotype.Service;
 
@@ -14,8 +17,14 @@ public class TimeTableService {
 
     private final TimeTableRepository repository;
 
-    public modern.clinic.app.persistence.entities.TimeTable createTimeTable(modern.clinic.app.persistence.entities.TimeTable timeTable) {
-        return repository.save(timeTable);
+    public modern.clinic.app.persistence.entities.TimeTable createTimeTable(PostTimeTableDto timeTable) {
+        var temp = TimeTable.builder()
+                .date(timeTable.getDate())
+                .startTime(timeTable.getStartTime())
+                .endTime(timeTable.getEndTime())
+                .build();
+
+        return repository.save(temp);
     }
 
     public List<TimeTable> getAll() {
@@ -33,5 +42,10 @@ public class TimeTableService {
 
     public void deleteTimeTable(Long id) {
         repository.deleteById(id);
+    }
+
+    public List<GetAvailableTimeTableDto> getAvailableTimeTables() {
+        var data = repository.findAll();
+        return TimeTableMapper.mapToTimeTableDtos(data);
     }
 }

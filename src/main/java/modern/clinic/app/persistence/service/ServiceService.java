@@ -2,6 +2,7 @@ package modern.clinic.app.persistence.service;
 
 
 import lombok.RequiredArgsConstructor;
+import modern.clinic.app.persistence.datatransferobjects.service.PostServiceDto;
 import modern.clinic.app.persistence.repository.ServiceRepository;
 import modern.clinic.app.persistence.entities.Service;
 
@@ -13,8 +14,9 @@ public class ServiceService {
 
     private final ServiceRepository repository;
 
-    public Service createService(Service service) {
-        return repository.save(service);
+    public Service createService(PostServiceDto service) {
+        var tempService = Service.builder().name(service.getName()).build();
+        return repository.save(tempService);
     }
 
     public List<Service> getAll() {

@@ -1,10 +1,12 @@
 package modern.clinic.app.controller;
 
 import lombok.RequiredArgsConstructor;
+import modern.clinic.app.persistence.datatransferobjects.doctor.*;
 import modern.clinic.app.persistence.entities.Doctor;
 import modern.clinic.app.persistence.entities.Mark;
 import modern.clinic.app.persistence.entities.Service;
 import modern.clinic.app.persistence.service.DoctorService;
+import modern.clinic.app.persistence.service.ServiceService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,6 +19,7 @@ import java.util.List;
 public class DoctorController {
 
     private final DoctorService doctorService;
+    private final ServiceService serviceService;
 
     @GetMapping("/{id}")
     public ResponseEntity<Doctor> getDoctor(@PathVariable Long id) {
@@ -28,8 +31,18 @@ public class DoctorController {
         }
     }
 
+    @GetMapping("/get-specialists")
+    public ResponseEntity<GetSpecialistsDto> getDoctor() {
+        GetSpecialistsDto specialists = doctorService.getSpecialists();
+        if (specialists != null) {
+            return new ResponseEntity<>(specialists, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
     @PostMapping
-    public ResponseEntity<Doctor> addDoctor(@RequestBody Doctor doctor) {
+    public ResponseEntity<PostDoctorDto> addDoctor(@RequestBody PostDoctorDto doctor) {
         doctorService.add(doctor);
         return new ResponseEntity<>(doctor, HttpStatus.CREATED);
     }
@@ -45,7 +58,7 @@ public class DoctorController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Doctor> updateDoctor(@PathVariable Long id, @RequestBody Doctor doctor) {
+    public ResponseEntity<PutDoctorDto> updateDoctor(@PathVariable Long id, @RequestBody PutDoctorDto doctor) {
         Doctor existingDoctor = doctorService.getById(id);
         if (existingDoctor != null) {
             doctorService.update(id, doctor);
@@ -83,6 +96,29 @@ public class DoctorController {
         if (existingDoctor != null) {
             var marks = doctorService.getMarksByDoctor(id);
             return new ResponseEntity<>(marks, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @PostMapping("/assign-service")
+    public ResponseEntity AssignService(@RequestBody AssignServiceDto assignServiceDto){
+        Doctor doctor = doctorService.getById(assignServiceDto.getDoctorId());
+        Service service = serviceService.getById(assignServiceDto.getServiceId());
+
+        if(doctor != null && service != null){
+            doctorService.assignService(doctor.getId(), service.getId());
+            return new ResponseEntity<>(null, HttpStatus.OK);
+        }else{
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @GetMapping("/available-specialists")
+    public ResponseEntity<List<GetAvailableSpecialistDto>> getAvailableSpecialists(){
+        var specialists = doctorService.getAvailableSpecialists();
+        if (specialists != null) {
+            return new ResponseEntity<>(specialists, HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }

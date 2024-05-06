@@ -1,6 +1,7 @@
 package modern.clinic.app.controller;
 
 import lombok.RequiredArgsConstructor;
+import modern.clinic.app.persistence.datatransferobjects.mark.PostMarkDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -28,7 +29,7 @@ public class MarkController {
     }
 
     @PostMapping
-    public ResponseEntity<Mark> addMark(@RequestBody Mark mark) {
+    public ResponseEntity<PostMarkDto> addMark(@RequestBody PostMarkDto mark) {
          markService.createMark(mark);
         return new ResponseEntity<>(mark, HttpStatus.CREATED);
     }

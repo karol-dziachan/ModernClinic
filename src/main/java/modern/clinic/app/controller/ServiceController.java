@@ -2,6 +2,7 @@ package modern.clinic.app.controller;
 
 
 import lombok.RequiredArgsConstructor;
+import modern.clinic.app.persistence.datatransferobjects.service.PostServiceDto;
 import modern.clinic.app.persistence.entities.Service;
 import modern.clinic.app.persistence.service.ServiceService;
 import org.springframework.http.HttpStatus;
@@ -28,7 +29,7 @@ public class ServiceController {
     }
 
     @PostMapping
-    public ResponseEntity<Service> addService(@RequestBody Service service) {
+    public ResponseEntity<PostServiceDto> addService(@RequestBody PostServiceDto service) {
         serviceService.createService(service);
         return new ResponseEntity<>(service, HttpStatus.CREATED);
     }

@@ -1,6 +1,7 @@
 package modern.clinic.app.controller;
 
 import lombok.RequiredArgsConstructor;
+import modern.clinic.app.persistence.datatransferobjects.offer.PostOfferDto;
 import modern.clinic.app.persistence.entities.Offer;
 import modern.clinic.app.persistence.service.OfferService;
 import org.springframework.http.HttpStatus;
@@ -26,7 +27,7 @@ public class OfferController {
     }
 
     @PostMapping
-    public ResponseEntity<Offer> addOffer(@RequestBody Offer offer) {
+    public ResponseEntity<PostOfferDto> addOffer(@RequestBody PostOfferDto offer) {
         offerService.createOffer(offer);
         return new ResponseEntity<>(offer, HttpStatus.CREATED);
     }

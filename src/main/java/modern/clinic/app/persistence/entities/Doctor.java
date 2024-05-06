@@ -3,10 +3,7 @@ package modern.clinic.app.persistence.entities;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.HashSet;
 import java.util.List;
@@ -19,6 +16,7 @@ import java.util.Set;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class Doctor {
 
     @jakarta.persistence.Id
@@ -30,6 +28,12 @@ public class Doctor {
 
     @Column(name="doctor_last_name", length=50, nullable=false, unique=false)
     private String lastName;
+
+    @Column(name="degree", length=50, nullable=true, unique=false)
+    private String degree;
+
+    @Column(name="degree_short", length=50, nullable=true, unique=false)
+    private String degreeShort;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="speciality_id", nullable=false, unique=false)

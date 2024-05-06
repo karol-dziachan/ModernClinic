@@ -12,6 +12,7 @@ import lombok.*;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class Mark {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,6 +26,9 @@ public class Mark {
 
     @Column(name="comment", length=50, nullable=false, unique=false)
     private String comment;
+
+    @Column(name="mark", nullable=false, unique=false)
+    private Long mark;
 
     @ManyToOne
     @JoinColumn(name="doctor_id", nullable=false)
