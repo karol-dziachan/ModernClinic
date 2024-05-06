@@ -46,4 +46,9 @@ public class Doctor {
     @OneToMany(mappedBy = "doctor", cascade = CascadeType.ALL)
     @JsonIgnore
     private List<Mark> marks;
+
+    @OneToMany(mappedBy = "doctor", cascade = CascadeType.ALL)
+    @JsonIgnoreProperties("doctor")
+    @JsonIgnore
+    private List<Visit> visits;
 }
