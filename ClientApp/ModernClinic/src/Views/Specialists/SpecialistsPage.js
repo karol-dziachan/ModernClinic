@@ -9,7 +9,7 @@ export default function SpecialistsPage({currentPage, setPage}){
         <ScrollView>
             <Menu currentPage={currentPage} changePage={setPage} />
             <Header content={"Nasi specjaliści"} />
-            <Persons />
+            <Persons setPage={setPage}/>
         </ScrollView>
     )
 }

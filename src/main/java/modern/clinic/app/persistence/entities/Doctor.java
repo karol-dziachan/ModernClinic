@@ -35,11 +35,11 @@ public class Doctor {
     @Column(name="degree_short", length=50, nullable=true, unique=false)
     private String degreeShort;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name="speciality_id", nullable=false, unique=false)
     private Speciality speciality;
 
-    @ManyToMany(cascade = {CascadeType.ALL})
+    @ManyToMany(cascade = {CascadeType.REMOVE})
     @JoinTable(name = "doctors_services",
             joinColumns = @JoinColumn(name = "doctor_id"),
             inverseJoinColumns = @JoinColumn(name = "service_id"))
@@ -47,11 +47,11 @@ public class Doctor {
     @JsonIgnore
     private Set<Service> services = new HashSet<>();
 
-    @OneToMany(mappedBy = "doctor", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "doctor", cascade = CascadeType.REMOVE)
     @JsonIgnore
     private List<Mark> marks;
 
-    @OneToMany(mappedBy = "doctor", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "doctor", cascade = CascadeType.REMOVE)
     @JsonIgnoreProperties("doctor")
     @JsonIgnore
     private List<Visit> visits;

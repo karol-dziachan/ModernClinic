@@ -1,7 +1,9 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import Header from "../../Header/Header";
 import OffersAccordion from "../../Atoms/OffersAccordion/OffersAccordion";
 import Tabs from "../../Atoms/Tabs/Tabs";
+import ApiClient from "../../../ApiClient/ApiClient";
+import { View, Text } from "react-native";
 
 var offersCategories = [
     {
@@ -37,7 +39,7 @@ var offersData = [
         name: "Kroplówka",
         promo: "-20%",
         nfz: true, 
-        private: true
+        privateOffer: true
     },
     {
         id: 2,
@@ -45,7 +47,7 @@ var offersData = [
         name: "Zastrzyk",
         promo: null,
         nfz: true, 
-        private: true
+        privateOffer: true
     },
     {
         id: 3,
@@ -53,7 +55,7 @@ var offersData = [
         name: "Szczepienie",
         promo: "-20%",
         nfz: true, 
-        private: true
+        privateOffer: true
     },
     {
         id: 4,
@@ -61,7 +63,7 @@ var offersData = [
         name: "Zmiana opatrunku",
         promo: "-20%",
         nfz: true, 
-        private: true
+        privateOffer: true
     },
     {
         id: 5,
@@ -69,7 +71,7 @@ var offersData = [
         name: "Zdejmowanie gipsu",
         promo: "-50%",
         nfz: true, 
-        private: true
+        privateOffer: true
     },
     {
         id: 1,
@@ -77,7 +79,7 @@ var offersData = [
         name: "Kroplówka",
         promo: "-20%",
         nfz: false, 
-        private: true
+        privateOffer: true
     },
     {
         id: 2,
@@ -85,7 +87,7 @@ var offersData = [
         name: "Zastrzyk",
         promo: null,
                 nfz: false, 
-        private: true
+        privateOffer: true
     },
     {
         id: 3,
@@ -93,7 +95,7 @@ var offersData = [
         name: "Szczepienie",
         promo: "-20%",
                 nfz: false, 
-        private: true
+        privateOffer: true
     },
     {
         id: 4,
@@ -101,7 +103,7 @@ var offersData = [
         name: "Zmiana opatrunku",
         promo: "-20%",
                 nfz: false, 
-        private: true
+        privateOffer: true
     },
     {
         id: 5,
@@ -109,7 +111,7 @@ var offersData = [
         name: "Zdejmowanie gipsu",
         promo: "-50%",
                 nfz: false, 
-        private: true
+        privateOffer: true
     },
     {
         id: 1,
@@ -117,7 +119,7 @@ var offersData = [
         name: "Kroplówka",
         promo: "-20%",
                 nfz: true, 
-        private: true
+        privateOffer: true
     },
     {
         id: 2,
@@ -125,7 +127,7 @@ var offersData = [
         name: "Zastrzyk",
         promo: null,
                 nfz: true, 
-        private: true
+        privateOffer: true
     },
     {
         id: 3,
@@ -133,7 +135,7 @@ var offersData = [
         name: "Szczepienie",
         promo: "-20%",
                 nfz: true, 
-        private: true
+        privateOffer: true
     },
     {
         id: 4,
@@ -141,7 +143,7 @@ var offersData = [
         name: "Zmiana opatrunku",
         promo: "-20%",
                 nfz: true, 
-        private: true
+        privateOffer: true
     },
     {
         id: 5,
@@ -149,7 +151,7 @@ var offersData = [
         name: "Zdejmowanie gipsu",
         promo: "-50%",
                 nfz: true, 
-        private: true
+        privateOffer: true
     },
     {
         id: 1,
@@ -157,7 +159,7 @@ var offersData = [
         name: "Kroplówka",
         promo: "-20%",
                 nfz: true, 
-        private: true
+        privateOffer: true
     },
     {
         id: 2,
@@ -165,7 +167,7 @@ var offersData = [
         name: "Zastrzyk",
         promo: null,
                 nfz: true, 
-        private: true
+        privateOffer: true
     },
     {
         id: 3,
@@ -173,7 +175,7 @@ var offersData = [
         name: "Szczepienie",
         promo: "-20%",
                 nfz: true, 
-        private: true
+        privateOffer: true
     },
     {
         id: 4,
@@ -181,7 +183,7 @@ var offersData = [
         name: "Zmiana opatrunku",
         promo: "-20%",
                 nfz: true, 
-        private: true
+        privateOffer: true
     },
     {
         id: 5,
@@ -189,7 +191,7 @@ var offersData = [
         name: "Zdejmowanie gipsu",
         promo: "-50%",
                 nfz: true, 
-        private: true
+        privateOffer: true
     },
     {
         id: 1,
@@ -197,7 +199,7 @@ var offersData = [
         name: "Kroplówka",
         promo: "-20%",
                 nfz: true, 
-        private: true
+        privateOffer: true
     },
     {
         id: 2,
@@ -205,7 +207,7 @@ var offersData = [
         name: "Zastrzyk",
         promo: null,
                 nfz: true, 
-        private: true
+        privateOffer: true
     },
     {
         id: 3,
@@ -213,7 +215,7 @@ var offersData = [
         name: "Szczepienie",
         promo: "-20%",
                 nfz: true, 
-        private: true
+        privateOffer: true
     },
     {
         id: 4,
@@ -221,7 +223,7 @@ var offersData = [
         name: "Zmiana opatrunku",
         promo: "-20%",
                 nfz: true, 
-        private: true
+        privateOffer: true
     },
     {
         id: 5,
@@ -229,7 +231,7 @@ var offersData = [
         name: "Zdejmowanie gipsu",
         promo: "-50%",
                 nfz: true, 
-        private: true
+        privateOffer: true
     },
     {
         id: 1,
@@ -237,7 +239,7 @@ var offersData = [
         name: "Kroplówka",
         promo: "-20%",
                 nfz: true, 
-        private: true
+        privateOffer: true
     },
     {
         id: 2,
@@ -245,7 +247,7 @@ var offersData = [
         name: "Zastrzyk",
         promo: null,
                 nfz: true, 
-        private: true
+        privateOffer: true
     },
     {
         id: 3,
@@ -253,7 +255,7 @@ var offersData = [
         name: "Szczepienie",
         promo: "-20%",
                 nfz: true, 
-        private: true
+        privateOffer: true
     },
     {
         id: 4,
@@ -261,30 +263,51 @@ var offersData = [
         name: "Zmiana opatrunku",
         promo: "-20%",
                 nfz: true, 
-        private: true
+        privateOffer: true
     },
     {
         id: 5,
         category: 6, 
         name: "Zdejmowanie gipsu",
         promo: "-50%",
-        private: true
+        privateOffer: true
 
     },
 ]
 
+
 export default function Offers(){
+     const [offersCategories, setOffersCategories] = useState([]);
+     const [offersData, setOffersData] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const apiClient = new ApiClient();
+
+        useEffect(async () => {
+            try {
+                const offData = await apiClient.get('/api/offers'); 
+                const catData = await apiClient.get('/api/offer-categories'); 
+                console.log('offers - ', offData)
+                console.log('categories - ', catData)
+                setOffersCategories(catData);
+                setOffersData(offData);
+                setLoading(false);
+            } catch (error) {
+                console.error('Błąd podczas pobierania danych:', error);
+        } }, []  
+    );
+
     return (
-              <Tabs
+                !loading ? <Tabs
         tabs={["Wizyty prywatne", "Wizyty na NFZ" ]}
         contents={{
-          "Wizyty prywatne":<OffersAccordion offersData={ offersData.filter((item) => item.private)} offersCategories={offersCategories.filter((category) =>
-    offersData.some((offer) => offer.category === category.id && offer.private)
+          "Wizyty prywatne":<OffersAccordion offersData={ offersData.filter((item) => item.privateOffer)} offersCategories={offersCategories.filter((category) =>
+    offersData.some((offer) => offer.category === category.id && offer.privateOffer)
   )}/>,
           "Wizyty na NFZ":<OffersAccordion offersData={ offersData.filter((item) => item.nfz)} offersCategories={offersCategories.filter((category) =>
     offersData.some((offer) => offer.category === category.id && offer.nfz)
   )}/>,
         }}
       />
+      : <View><Text>Ładowanie</Text></View>
     )
 }

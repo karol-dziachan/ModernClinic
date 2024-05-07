@@ -23,7 +23,7 @@ public class Speciality {
     @Column(name="speciality_name", length=50, nullable=false, unique=false)
     private String name;
 
-    @OneToMany(mappedBy = "speciality", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "speciality", cascade = CascadeType.REMOVE)
     @JsonIgnoreProperties("speciality")
     @JsonIgnore
     private List<Doctor> doctors;

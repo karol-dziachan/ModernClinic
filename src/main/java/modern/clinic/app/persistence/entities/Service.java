@@ -29,7 +29,7 @@ public class Service {
     @JsonIgnore
     private Set<Doctor> doctors = new HashSet<>();
 
-    @OneToMany(mappedBy = "service", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "service", cascade = CascadeType.REMOVE)
     @JsonIgnoreProperties("service")
     @JsonIgnore
     private List<Visit> visits;

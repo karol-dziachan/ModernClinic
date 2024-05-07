@@ -1,160 +1,32 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { View, Text } from "react-native";
 import ExpertPerson from "../../Atoms/ExpertPerson/ExpertPerson";
+import ApiClient from "../../../ApiClient/ApiClient";
 
-const services =  [
-    {
-        id: 1, 
-        name: "zastrzyk"
-    },
-    {
-        id: 2, 
-        name: "mierzenie ciśnienia"
-    },
-    {
-        id: 3, 
-        name: "pobranie krwi"
-    },
-    {
-        id: 4, 
-        name: "zmiana opatrunku"
-    },
-    {
-        id: 5, 
-        name: "posprzątanie domu"
-    },
-]
+export default function Persons({setPage}){
+    const [services, setServices] = useState([]);
+    const [specialists, setSpecialists] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const apiClient = new ApiClient()
 
-const specialists = {
-    persons: [
-        {
-            name: "dr Anna Lewandowska",
-            speciality: "Kardiolog",
-            rateAvg: 3,
-            photo: null, 
-            services: [1, 2, 3, 4, 5],
-            opinions: [
-                {
-                    mark: 3, 
-                    title: "jest ok, jest ok, jest ok jest okjest okjest ok",
-                    comment: "bez komentarzabez komentarzabez komentarzabez komentarzabez komentarzabez komentarzabez komentarzabez komentarzabez komentarzabez komentarzabez komentarza"
-                },
-                {
-                    mark: 3, 
-                    title: "jest ok, jest ok, jest ok jest okjest okjest ok",
-                    comment: "bez komentarzabez komentarzabez komentarzabez komentarzabez komentarzabez komentarzabez komentarzabez komentarzabez komentarzabez komentarzabez komentarza"
-                },
-                {
-                    mark: 3, 
-                    title: "jest ok, jest ok, jest ok jest okjest okjest ok",
-                    comment: "bez komentarzabez komentarzabez komentarzabez komentarzabez komentarzabez komentarzabez komentarzabez komentarzabez komentarzabez komentarzabez komentarza"
-                },
-                {
-                    mark: 3, 
-                    title: "jest ok, jest ok, jest ok jest okjest okjest ok",
-                    comment: "bez komentarzabez komentarzabez komentarzabez komentarzabez komentarzabez komentarzabez komentarzabez komentarzabez komentarzabez komentarzabez komentarza"
-                },
-                {
-                    mark: 3, 
-                    title: "jest ok, jest ok, jest ok jest okjest okjest ok",
-                    comment: "bez komentarzabez komentarzabez komentarzabez komentarzabez komentarzabez komentarzabez komentarzabez komentarzabez komentarzabez komentarzabez komentarza"
-                },
-                {
-                    mark: 3, 
-                    title: "jest ok",
-                    comment: "bez komentarza"
-                },
-                {
-                    mark: 3, 
-                    title: "jest ok",
-                    comment: "bez komentarza"
-                },
-                {
-                    mark: 3, 
-                    title: "jest ok",
-                    comment: "bez komentarza"
-                },
-                {
-                    mark: 3, 
-                    title: "jest ok",
-                    comment: "bez komentarza"
-                },
-            ]
-        },
-        {
-            name: "dr Anna Lewandowska",
-            speciality: "Kardiolog",
-            rateAvg: 3,
-            photo: null, 
-            services: [1, 2, 3, 4, 5],
-            opinions: [
-                {
-                    mark: 3, 
-                    title: "jest ok",
-                    comment: "bez komentarza"
-                },
-                {
-                    mark: 3, 
-                    title: "jest ok",
-                    comment: "bez komentarza"
-                },
-                {
-                    mark: 3, 
-                    title: "jest ok",
-                    comment: "bez komentarza"
-                },
-                {
-                    mark: 3, 
-                    title: "jest ok",
-                    comment: "bez komentarza"
-                },
-                {
-                    mark: 3, 
-                    title: "jest ok",
-                    comment: "bez komentarza"
-                },
-            ]
-        },
-        {
-            name: "dr Anna Lewandowska",
-            speciality: "Kardiolog",
-            rateAvg: 3,
-            photo: null, 
-            services: [1, 2, 3, 4, 5],
-            opinions: [
-                {
-                    mark: 3, 
-                    title: "jest ok",
-                    comment: "bez komentarza"
-                },
-                {
-                    mark: 3, 
-                    title: "jest ok",
-                    comment: "bez komentarza"
-                },
-                {
-                    mark: 3, 
-                    title: "jest ok",
-                    comment: "bez komentarza"
-                },
-                {
-                    mark: 3, 
-                    title: "jest ok",
-                    comment: "bez komentarza"
-                },
-                {
-                    mark: 3, 
-                    title: "jest ok",
-                    comment: "bez komentarza"
-                },
-            ]
-        },
-    ]
-}
+    useEffect(async () => {
+            try {
+                const serviceData = await apiClient.get('/api/services'); 
+                const doctors = await apiClient.get('/api/doctors/get-specialists'); 
+                setServices(serviceData);
+                setSpecialists(doctors);
+                setLoading(false);
 
-export default function Persons(){
+                console.log('doctors  - ', doctors.persons)
+            } catch (error) {
+                console.error('Błąd podczas pobierania danych:', error);
+        }   
+
+    }, []);
+
     return (
-        specialists.persons.map((item) =>
-        <ExpertPerson person={item} services={services.filter((ser) => item.services.includes(ser.id))}/>
-        )
+        !loading ? specialists.persons.map((item) =>
+        <ExpertPerson setPage={setPage} person={item} services={services.filter((ser) => item.services.includes(ser.id))}/>
+        ) : <View><Text>Ładowanie</Text></View>
     )
 }

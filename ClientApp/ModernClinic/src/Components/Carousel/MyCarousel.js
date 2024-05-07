@@ -146,11 +146,11 @@ const styles = StyleSheet.create({
 });
 
 const data = [
-  { pic: require('../../../assets/slid1.jpeg'), text: 'Przyjedziemy do ciebie \n do domu', button: {url: "", title: "Umów wizytę", icon: "calendar-alt"} },
-  { pic: require('../../../assets/slid2.jpeg'), text: 'Tylko w tym miesiącu \n -20% na wszystkie badania', button: {url: "", title: "Promocje", icon: ""} },
+  { pic: require('../../../assets/slid1.jpeg'), text: 'Przyjedziemy do ciebie \n do domu', button: {url: "BookVisitPage", title: "Umów wizytę", icon: "calendar-alt"} },
+  { pic: require('../../../assets/slid2.jpeg'), text: 'Tylko w tym miesiącu \n -20% na wszystkie badania', button: {url: "OffersPage", title: "Promocje", icon: ""} },
 ];
 
-const MyCarousel = () => {
+const MyCarousel = ({currentPage, setPage}) => {
   const carouselRef = React.useRef(null);
   const [activeSlide, setActiveSlide] = React.useState(0);
 
@@ -167,7 +167,7 @@ const MyCarousel = () => {
                   <Text style={styles.sliderText}>{item.text}</Text>
             </View>
             <View style={styles.sliderButtonContainer}>
-              <TouchableOpacity style={styles.button} onPress={() => console.log("Button pressed")}>
+              <TouchableOpacity style={styles.button} onPress={() => setPage(item.button.url || "BookVisitPage")}>
                 <View style = {styles.buttonContentContainer}>
                   <Text style={styles.buttonText}>
                     {item.button.icon &&  

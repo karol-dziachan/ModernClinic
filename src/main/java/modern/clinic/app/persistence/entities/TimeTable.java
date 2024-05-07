@@ -30,7 +30,7 @@ public class TimeTable {
     @Column(name="end_time", nullable=false, unique=false)
     private LocalTime endTime;
 
-    @OneToMany(mappedBy = "timeTable", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "timeTable", cascade = CascadeType.REMOVE)
     @JsonIgnoreProperties("time_table")
     @JsonIgnore
     private List<Visit> visits;

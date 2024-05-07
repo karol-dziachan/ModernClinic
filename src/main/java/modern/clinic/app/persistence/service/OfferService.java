@@ -1,10 +1,12 @@
 package modern.clinic.app.persistence.service;
 
 import lombok.RequiredArgsConstructor;
+import modern.clinic.app.persistence.datatransferobjects.offer.GetOfferDto;
 import modern.clinic.app.persistence.datatransferobjects.offer.PostOfferDto;
 import modern.clinic.app.persistence.entities.Offer;
 import modern.clinic.app.persistence.repository.OfferCategoryRepository;
 import modern.clinic.app.persistence.repository.OfferRepository;
+import modern.clinic.app.utils.mappers.OfferMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -31,8 +33,10 @@ public class OfferService {
         return repository.save(tempOffer);
     }
 
-    public List<Offer> getAll() {
-        return repository.findAll();
+    public List<GetOfferDto> getAll() {
+        var offers = repository.findAll();
+
+        return OfferMapper.toDtoList(offers);
     }
 
     public modern.clinic.app.persistence.entities.Offer getById(Long id) {

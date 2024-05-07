@@ -11,7 +11,6 @@ const MarksDialog = ({  opinions, doctorName, isVisible, setModalVisible }) => {
     };
 
     const handleCancel = () => {
-        // Tutaj możesz dodać kod do anulowania wizyty
         closeDialog();
     };
 

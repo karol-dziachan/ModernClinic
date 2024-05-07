@@ -18,4 +18,5 @@ public class GetAvailableSpecialistDto {
     public String name;
     public List<Integer> availableOffers;
     public List<Integer> availableTime;
+    public String photo = null;
 }

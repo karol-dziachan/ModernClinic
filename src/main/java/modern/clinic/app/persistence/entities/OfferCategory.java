@@ -24,7 +24,7 @@ public class OfferCategory {
     @Column(name="category_name", length=50, nullable=false, unique=false)
     private String name;
 
-    @OneToMany(mappedBy = "offerCategory", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "offerCategory", cascade = CascadeType.REMOVE)
     @JsonIgnoreProperties("offer_category")
     @JsonIgnore
     private List<Offer> offers;

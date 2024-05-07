@@ -133,7 +133,7 @@ export default function UpcommingVisit({upcommingVisitData}){
 
     return (
         <>
-        <View style={[styles.container, upcommingVisitData.isPast && styles.pastVisit]}>
+        <View style={[styles.container, upcommingVisitData.past && styles.pastVisit]}>
             <View style={styles.flex}>
                 <View style={upcommingVisitData.doctor.photo !== null ? styles.photoContainer : styles.placeholderContainer}>
                     <Icon name="user-alt" size={70} color="white" />
@@ -149,7 +149,7 @@ export default function UpcommingVisit({upcommingVisitData}){
                 </View>
             </View>
             {
-                !upcommingVisitData.isPast && 
+                !upcommingVisitData.past && 
                 <View style={styles.buttonContainer}>
                     <TouchableOpacity style={styles.button} onPress={openDialog}>
                         <Text style={styles.buttonText}>
@@ -159,7 +159,7 @@ export default function UpcommingVisit({upcommingVisitData}){
                 </View>
             }
             {
-                upcommingVisitData.isPast && 
+                upcommingVisitData.past && 
                 <View style={styles.buttonContainer}>
                     <TouchableOpacity style={styles.button} onPress={openRateDialog}>
                         <Text style={styles.buttonText}>

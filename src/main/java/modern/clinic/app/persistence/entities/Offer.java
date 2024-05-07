@@ -19,7 +19,7 @@ public class Offer {
     @Column(name="offer_name", length=50, nullable=false, unique=false)
     private String name;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name="offer_categories_id", nullable=false, unique=false)
     private OfferCategory offerCategory;
 

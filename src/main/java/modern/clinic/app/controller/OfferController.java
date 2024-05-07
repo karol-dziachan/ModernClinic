@@ -1,6 +1,7 @@
 package modern.clinic.app.controller;
 
 import lombok.RequiredArgsConstructor;
+import modern.clinic.app.persistence.datatransferobjects.offer.GetOfferDto;
 import modern.clinic.app.persistence.datatransferobjects.offer.PostOfferDto;
 import modern.clinic.app.persistence.entities.Offer;
 import modern.clinic.app.persistence.service.OfferService;
@@ -33,8 +34,8 @@ public class OfferController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Offer>> getAllOffers() {
-        List<Offer> offers = offerService.getAll();
+    public ResponseEntity<List<GetOfferDto>> getAllOffers() {
+        List<GetOfferDto> offers = offerService.getAll();
         if (offers != null) {
             return new ResponseEntity<>(offers, HttpStatus.OK);
         } else {

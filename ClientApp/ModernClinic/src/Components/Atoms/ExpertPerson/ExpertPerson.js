@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
 
     },
     detailsContainer: {
-
+        flex: 1,
     },
     button:{
         backgroundColor: "#17B5FF",
@@ -52,7 +52,8 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignContent: 'center',
     alignItems: 'center',
-    marginRight: 10
+    marginRight: 10, 
+    flex: 2
   },
   detailsContainer:{
   },
@@ -110,7 +111,7 @@ const styles = StyleSheet.create({
     }
 })
 
-export default function ExpertPerson({person, services}){
+export default function ExpertPerson({person, services, setPage}){
         const [dialogVisible, setDialogVisible] = useState(false);
 
                 useEffect(() => {
@@ -165,7 +166,7 @@ export default function ExpertPerson({person, services}){
             </View>
       
                 <View style={styles.buttonContainer}>
-                    <TouchableOpacity style={styles.button} onPress={() => console.log("test")}>
+                    <TouchableOpacity style={styles.button} onPress={() => setPage("BookVisitPage")}>
                         <Text style={styles.buttonText}>
                             Umów wizytę
                         </Text>

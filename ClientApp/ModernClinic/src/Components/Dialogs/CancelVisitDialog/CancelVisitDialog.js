@@ -1,15 +1,17 @@
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, Modal, StyleSheet } from 'react-native';
+import ApiClient from '../../../ApiClient/ApiClient';
 
 const CancelVisitDialog = ({ visitId, isVisible, setModalVisible }) => {
+    const apiClient = new ApiClient()
 
     const closeDialog = () => {
         setModalVisible(false);
     };
 
-    const handleCancel = () => {
-        // Tutaj możesz dodać kod do anulowania wizyty
-        console.log("Anulowano wizytę o ID:", visitId);
+    const handleCancel = async () => {
+        console.log('call - ', `/api/visits/${visitId}`)
+        await apiClient.delete(`/api/visits/${visitId}`);
         closeDialog();
     };
 

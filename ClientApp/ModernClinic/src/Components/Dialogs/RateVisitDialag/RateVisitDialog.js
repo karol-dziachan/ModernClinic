@@ -3,6 +3,7 @@ import { View, Text, TouchableOpacity, Modal, StyleSheet, TextInput, Dimensions 
 import Header from '../../Header/Header';
 import { BlurView } from 'expo-blur';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import ApiClient from '../../../ApiClient/ApiClient';
 
 const { height: screenHeight, width: screenWidth } = Dimensions.get('window');
 
@@ -10,13 +11,23 @@ const RateVisitDialog = ({ visitId, isVisible, setModalVisible }) => {
     const [rating, setRating] = useState(0);
     const [comment, setComment] = useState('');
     const [title, setTitle] = useState('');
+    const apiClient = new ApiClient();
 
     const closeDialog = () => {
         setModalVisible(false);
     };
 
-    const handleConfirm = () => {
-        // Tutaj możesz dodać kod do wysłania danych oceny
+    const handleConfirm = async () => {
+        let visit = await apiClient.get('/api/visits/'+visitId)
+        console.log('wizyta - ', visit?.doctor?.id);
+        let data = {
+            title: title,
+            description: comment, 
+            comment: comment, 
+            mark: rating, 
+            doctorId: visit?.doctor?.id
+        }
+        await apiClient.post('/api/marks', data);
         console.log("Wysłano ocenę:");
         console.log("Ocena: ", rating);
         console.log("Tytuł: ", title);

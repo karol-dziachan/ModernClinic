@@ -10,7 +10,7 @@ function HomePage({currentPage, setPage}) {
     return (
         <ScrollView>
             <Menu currentPage={currentPage} changePage={setPage} />
-            <MyCarousel/>
+            <MyCarousel currentPage={currentPage} setPage={setPage}/>
             <UpcommingVisitComponent setPage = {setPage}/>
             <UseFulLinks setPage={setPage}/>
            <Rodo /> 
