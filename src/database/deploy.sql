@@ -30,8 +30,6 @@ CREATE TABLE IF NOT EXISTS doctors_services (
     );
 
 
-
-
 CREATE TABLE IF NOT EXISTS marks (
     id BIGSERIAL PRIMARY KEY,
     title VARCHAR(50) NOT NULL,
