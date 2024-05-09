@@ -67,7 +67,7 @@ public class VisitController {
     }
 
     @PostMapping("/book-visit")
-    public ResponseEntity<Visit> bookVisit(@RequestBody PostVisitDto visits) {
+    public ResponseEntity<Visit> bookVisit(@RequestBody PostVisitDto visits) throws Exception {
         Visit visit = visitsService.bookVisit(visits);
         if (visit != null) {
             return new ResponseEntity<>(HttpStatus.OK);

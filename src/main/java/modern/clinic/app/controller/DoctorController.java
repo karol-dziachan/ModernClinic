@@ -5,8 +5,10 @@ import modern.clinic.app.persistence.datatransferobjects.doctor.*;
 import modern.clinic.app.persistence.entities.Doctor;
 import modern.clinic.app.persistence.entities.Mark;
 import modern.clinic.app.persistence.entities.Service;
+import modern.clinic.app.persistence.entities.TimeTable;
 import modern.clinic.app.persistence.service.DoctorService;
 import modern.clinic.app.persistence.service.ServiceService;
+import modern.clinic.app.persistence.service.TimeTableService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,6 +22,7 @@ public class DoctorController {
 
     private final DoctorService doctorService;
     private final ServiceService serviceService;
+    private final TimeTableService timeTableService;
 
     @GetMapping("/{id}")
     public ResponseEntity<Doctor> getDoctor(@PathVariable Long id) {
@@ -108,6 +111,19 @@ public class DoctorController {
 
         if(doctor != null && service != null){
             doctorService.assignService(doctor.getId(), service.getId());
+            return new ResponseEntity<>(null, HttpStatus.OK);
+        }else{
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @PostMapping("/assign-timetable")
+    public ResponseEntity AssignService(@RequestBody AssignTimeTableDto assignTimeTableDto){
+        Doctor doctor = doctorService.getById(assignTimeTableDto.getDoctorId());
+        TimeTable timeTable = timeTableService.getById(assignTimeTableDto.getTimeTableId());
+
+        if(doctor != null && timeTable != null){
+            doctorService.assignService(doctor.getId(), timeTable.getId());
             return new ResponseEntity<>(null, HttpStatus.OK);
         }else{
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

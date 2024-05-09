@@ -15,15 +15,15 @@ public class Visit {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(cascade = CascadeType.REMOVE)
+    @ManyToOne
     @JoinColumn(name="doctor_id", nullable=false, unique=false)
     private Doctor doctor;
 
-    @ManyToOne(cascade = CascadeType.REMOVE)
+    @ManyToOne
     @JoinColumn(name="time_table_id", nullable=false, unique=false)
     private TimeTable timeTable;
 
-    @ManyToOne(cascade = CascadeType.REMOVE)
+    @ManyToOne
     @JoinColumn(name="service_id", nullable=false, unique=false)
     private Service service;
 

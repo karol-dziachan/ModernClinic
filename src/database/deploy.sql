@@ -30,6 +30,8 @@ CREATE TABLE IF NOT EXISTS doctors_services (
     );
 
 
+
+
 CREATE TABLE IF NOT EXISTS marks (
     id BIGSERIAL PRIMARY KEY,
     title VARCHAR(50) NOT NULL,
@@ -63,6 +65,14 @@ CREATE TABLE IF NOT EXISTS time_table(
     start_time TIME NOT NULL,
     end_time TIME NOT NULL
     )
+
+CREATE TABLE IF NOT EXISTS doctors_timetables (
+                                                doctor_id BIGINT NOT NULL,
+                                                timetable_id BIGINT NOT NULL,
+                                                PRIMARY KEY (doctor_id, timetable_id),
+    FOREIGN KEY (doctor_id) REFERENCES doctors(id),
+    FOREIGN KEY (timetable_id) REFERENCES time_table(id)
+    );
 
 CREATE TABLE IF NOT EXISTS visits(
     id BIGSERIAL PRIMARY KEY,

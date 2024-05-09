@@ -7,7 +7,9 @@ import lombok.*;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "time_table")
@@ -30,8 +32,13 @@ public class TimeTable {
     @Column(name="end_time", nullable=false, unique=false)
     private LocalTime endTime;
 
-    @OneToMany(mappedBy = "timeTable", cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "timeTable")
     @JsonIgnoreProperties("time_table")
     @JsonIgnore
     private List<Visit> visits;
+
+    @ManyToMany(mappedBy = "timeTables")
+    @JsonIgnoreProperties("doctors")
+    @JsonIgnore
+    private Set<Doctor> doctors = new HashSet<>();
 }

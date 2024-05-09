@@ -23,5 +23,10 @@ public interface DoctorRepository extends JpaRepository<Doctor, Long> {
     @Modifying
     @Query(value = "INSERT INTO doctors_services (doctor_id, service_id) VALUES (:doctorId, :serviceId)", nativeQuery = true)
     void assignService(Long doctorId, Long serviceId);
+
+    @Transactional
+    @Modifying
+    @Query(value = "INSERT INTO doctors_timetables (doctor_id, timetable_id) VALUES (:doctorId, :timetableId)", nativeQuery = true)
+    void assignTimeTable(Long doctorId, Long timetableId);
 }
 

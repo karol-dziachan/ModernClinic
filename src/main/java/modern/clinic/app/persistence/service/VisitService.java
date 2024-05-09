@@ -12,6 +12,7 @@ import modern.clinic.app.persistence.repository.ServiceRepository;
 import modern.clinic.app.persistence.repository.TimeTableRepository;
 import modern.clinic.app.persistence.repository.VisitRepository;
 import modern.clinic.app.utils.mappers.VisitMapper;
+import org.hibernate.exception.DataException;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -51,7 +52,7 @@ public class VisitService {
         repository.deleteById(id);
     }
 
-    public Visit bookVisit(PostVisitDto dto){
+    public Visit bookVisit(PostVisitDto dto) throws Exception {
         var doctor = doctorRepository.findById(dto.getDoctorId());
 
         if(doctor.isEmpty()){
@@ -62,6 +63,10 @@ public class VisitService {
 
         if(existsTimeTable.isEmpty()){
             throw new EntityNotFoundException("TimeTable not found");
+        }
+
+        if (existsTimeTable.get().getDoctors().contains(doctor.orElse(null))) {
+            throw new Exception("This timetable is assign to this doctor already");
         }
 
         var service = serviceRepository.findById(dto.getServiceId());

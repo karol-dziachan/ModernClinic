@@ -69,6 +69,10 @@ public class DoctorService {
         repository.assignService(doctorId, serviceId);
     }
 
+    public void assignTimeTable(Long doctorId, Long timeTableId) {
+        repository.assignTimeTable(doctorId, timeTableId);
+    }
+
     public GetSpecialistsDto getSpecialists() {
         var doctors = repository.findAll();
 
