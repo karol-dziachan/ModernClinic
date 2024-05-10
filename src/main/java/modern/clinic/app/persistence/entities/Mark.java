@@ -18,13 +18,13 @@ public class Mark {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name="title", length=50, nullable=false, unique=false)
+    @Column(name="title", length=150, nullable=false, unique=false)
     private String title;
 
-    @Column(name="description", length=50, nullable=false, unique=false)
+    @Column(name="description", length=150, nullable=false, unique=false)
     private String description;
 
-    @Column(name="comment", length=50, nullable=false, unique=false)
+    @Column(name="comment", length=150, nullable=false, unique=false)
     private String comment;
 
     @Column(name="mark", nullable=false, unique=false)

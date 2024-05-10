@@ -23,16 +23,16 @@ public class Doctor {
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Long id;
 
-    @Column(name="doctor_first_name", length=50, nullable=false, unique=false)
+    @Column(name="doctor_first_name", length=150, nullable=false, unique=false)
     private String firstName;
 
-    @Column(name="doctor_last_name", length=50, nullable=false, unique=false)
+    @Column(name="doctor_last_name", length=150, nullable=false, unique=false)
     private String lastName;
 
-    @Column(name="degree", length=50, nullable=true, unique=false)
+    @Column(name="degree", length=150, nullable=true, unique=false)
     private String degree;
 
-    @Column(name="degree_short", length=50, nullable=true, unique=false)
+    @Column(name="degree_short", length=150, nullable=true, unique=false)
     private String degreeShort;
 
     @ManyToOne

@@ -20,7 +20,7 @@ public class Speciality {
     @JsonIgnore
     private Long id;
 
-    @Column(name="speciality_name", length=50, nullable=false, unique=false)
+    @Column(name="speciality_name", length=150, nullable=false, unique=false)
     private String name;
 
     @OneToMany(mappedBy = "speciality")

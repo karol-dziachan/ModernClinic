@@ -21,7 +21,7 @@ public class Service {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name="service_name", length=50, nullable=false, unique=false)
+    @Column(name="service_name", length=150, nullable=false, unique=false)
     private String name;
 
     @ManyToMany(mappedBy = "services")

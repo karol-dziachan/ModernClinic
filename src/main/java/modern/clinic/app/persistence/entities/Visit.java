@@ -36,6 +36,6 @@ public class Visit {
     @Column(name="is_nfz",  nullable=false, unique=false)
     private boolean isNfz;
 
-    @Column(name="refferal_number", length=50, nullable=false, unique=false)
+    @Column(name="refferal_number", length=150, nullable=false, unique=false)
     private String refferalNumber;
 }
