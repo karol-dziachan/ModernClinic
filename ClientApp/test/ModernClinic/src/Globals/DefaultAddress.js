@@ -1,0 +1,1 @@
+export default 'ModernClinic POMORSKA, ul. Pomorska 16/39';
