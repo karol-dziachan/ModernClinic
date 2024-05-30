@@ -1,8 +1,11 @@
-import React from "react";
+import React , {useState, useEffect} from "react";
+import { View, Text } from "react-native";
 import Header from "../../Header/Header";
 import OffersAccordionForm from "../../VisitForm/OffersAccordionForm/OffersAccordionForm";
 import Tabs from "../../Atoms/Tabs/Tabs";
 import TabsForm from "../../VisitForm/TabsForm/TabsForm";
+import ApiClient from "../../../ApiClient/ApiClient";
+import Loader from "../../Atoms/Loader/Loader";
 
 var offersCategories = [
     {
@@ -275,17 +278,36 @@ var offersData = [
 ]
 
 export default function OffersForm({setService}){
+
+         const [offersCategories, setOffersCategories] = useState([]);
+     const [offersData, setOffersData] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const apiClient = new ApiClient();
+
+            useEffect(async () => {
+            try {
+                const offData = await apiClient.get('/api/offers'); 
+                const catData = await apiClient.get('/api/offer-categories'); 
+                setOffersCategories(catData);
+                setOffersData(offData);
+                setLoading(false);
+            } catch (error) {
+                console.error('Błąd podczas pobierania danych:', error);
+        } }, []  
+    );
+
     return (
-              <TabsForm
+            !loading ?  <TabsForm
         tabs={["Wizyty prywatne", "Wizyty na NFZ" ]}
         contents={{
-          "Wizyty prywatne":<OffersAccordionForm setService={setService} offersData={ offersData.filter((item) => item.private)} offersCategories={offersCategories.filter((category) =>
-    offersData.some((offer) => offer.category === category.id && offer.private)
+          "Wizyty prywatne":<OffersAccordionForm isNfzAccordion={false} setService={setService} offersData={ offersData.filter((item) => item.privateOffer)} offersCategories={offersCategories.filter((category) =>
+    offersData.some((offer) => offer.category === category.id && offer.privateOffer)
   )}/>,
-          "Wizyty na NFZ":<OffersAccordionForm offersData={ offersData.filter((item) => item.nfz)} offersCategories={offersCategories.filter((category) =>
+          "Wizyty na NFZ":<OffersAccordionForm isNfzAccordion={true} offersData={ offersData.filter((item) => item.nfz)} offersCategories={offersCategories.filter((category) =>
     offersData.some((offer) => offer.category === category.id && offer.nfz)
   )}/>,
         }}
       />
+      : <Loader />
     )
 }

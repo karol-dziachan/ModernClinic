@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { View, Text } from "react-native";
 import ExpertPerson from "../../Atoms/ExpertPerson/ExpertPerson";
 import ApiClient from "../../../ApiClient/ApiClient";
+import Loader from "../../Atoms/Loader/Loader";
 
 export default function Persons({setPage}){
     const [services, setServices] = useState([]);
@@ -16,10 +17,8 @@ export default function Persons({setPage}){
                 setServices(serviceData);
                 setSpecialists(doctors);
                 setLoading(false);
-
-                console.log('doctors  - ', doctors.persons)
             } catch (error) {
-                console.error('Błąd podczas pobierania danych:', error);
+                console.error('Error during fetching data (Persons):', error);
         }   
 
     }, []);
@@ -27,6 +26,6 @@ export default function Persons({setPage}){
     return (
         !loading ? specialists.persons.map((item) =>
         <ExpertPerson setPage={setPage} person={item} services={services.filter((ser) => item.services.includes(ser.id))}/>
-        ) : <View><Text>Ładowanie</Text></View>
+        ) : <Loader />
     )
 }

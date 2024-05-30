@@ -1,9 +1,9 @@
 import React from 'react';
-import { useFonts } from 'expo-font';    
+import { useFonts } from 'expo-font';
 
 
-export default function GetFonts(){
-    let [fontsLoaded] = useFonts({
+export default function GetFonts() {
+  let [fontsLoaded] = useFonts({
     'Roboto-Black': require('../../../assets/fonts/Roboto-Black.ttf'),
     'Roboto-BlackItalic': require('../../../assets/fonts/Roboto-BlackItalic.ttf'),
     'Roboto-Bold': require('../../../assets/fonts/Roboto-Bold.ttf'),
@@ -18,5 +18,5 @@ export default function GetFonts(){
     'Roboto-Thin': require('../../../assets/fonts/Roboto-Thin.ttf'),
   });
 
-   return fontsLoaded; 
+  return fontsLoaded;
 }

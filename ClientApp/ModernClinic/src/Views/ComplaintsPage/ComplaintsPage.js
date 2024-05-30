@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 
 import { Text, ScrollView, View, TextInput, StyleSheet, TouchableOpacity } from "react-native";
 import Menu from "../../Components/MenuComponents/Menu/Menu";
@@ -29,48 +29,48 @@ const tabData = [
     },
 ]
 
-export default function ComplaintsPage({currentPage, setPage}){
-        const [comment, setComment] = useState('');
+export default function ComplaintsPage({ currentPage, setPage }) {
+    const [comment, setComment] = useState('');
     const [title, setTitle] = useState('');
 
     const handleConfirm = () => {
-        console.log("wysyłanie reklamacji")
+        console.info("Complaints sending...")
     }
     return (<ScrollView>
-     <Menu currentPage={currentPage} changePage={setPage} />
-     <Header content="Polityka prywatności – ogólne zasady przetwarzania danych osobowych i ochrony prywatności w Modern Clinic" />
-     <Accordion tabData={tabData} style={{marginBottom: 30}} /> 
-     <View>
-        <View style={[styles.inputContainer, styles.marginTop, styles.shadow]}>
-                        <TextInput
-                            style={styles.input}
-                            placeholder="Tytuł..."
-                            value={title}
-                            onChangeText={(text) => setTitle(text)}
-                        />
-                    </View>
-                    <View style={[styles.inputContainer, styles.textAreaContainer, styles.shadow]}>
-                        <TextInput
-                            style={[styles.input, styles.textArea]}
-                            placeholder="Treść reklamacji..."
-                            value={comment}
-                            onChangeText={(text) => setComment(text)}
-                            multiline={true}
-                        />
-                    </View>
+        <Menu currentPage={currentPage} changePage={setPage} />
+        <Header content="Reklamacje" />
+        <Accordion tabData={tabData} style={{ marginBottom: 30 }} />
+        <View>
+            <View style={[styles.inputContainer, styles.marginTop, styles.shadow]}>
+                <TextInput
+                    style={styles.input}
+                    placeholder="Tytuł..."
+                    value={title}
+                    onChangeText={(text) => setTitle(text)}
+                />
+            </View>
+            <View style={[styles.inputContainer, styles.textAreaContainer, styles.shadow]}>
+                <TextInput
+                    style={[styles.input, styles.textArea]}
+                    placeholder="Treść reklamacji..."
+                    value={comment}
+                    onChangeText={(text) => setComment(text)}
+                    multiline={true}
+                />
+            </View>
 
-                  <View style={styles.buttonContainer}>
-                        <TouchableOpacity style={styles.confirmButton} onPress={handleConfirm}>
-                            <Text style={styles.buttonText}>Potwierdź</Text>
-                        </TouchableOpacity>
-                    </View>
-     </View>
+            <View style={styles.buttonContainer}>
+                <TouchableOpacity style={styles.confirmButton} onPress={handleConfirm}>
+                    <Text style={styles.buttonText}>Potwierdź</Text>
+                </TouchableOpacity>
+            </View>
+        </View>
     </ScrollView>
     )
 }
 
 const styles = StyleSheet.create({
-     buttonContainer: {
+    buttonContainer: {
         display: 'flex',
         flexDirection: 'row',
         marginTop: 20,
@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
         color: 'white',
         textAlign: 'center',
     },
-        confirmButton: {
+    confirmButton: {
         backgroundColor: '#17B5FF',
         padding: 10,
         borderRadius: 5,

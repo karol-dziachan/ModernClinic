@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { View, Text, TextInput, Switch, Button, StyleSheet } from "react-native";
 
-export default function IsNfz({setRefferalNumber, setIsNfz}){
- const [isNfz, setIsNfzFun] = useState(false);
+export default function IsNfz({ setRefferalNumber, setIsNfz }) {
+    const [isNfz, setIsNfzFun] = useState(false);
 
     const handleSetIsNfz = (val) => {
         setIsNfzFun(val);
@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
     attention: {
         textAlign: 'center',
         color: 'red'
-    },  
+    },
     info: {
         fontSize: 12
     },
@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
         marginBottom: 10,
     },
     switchLabel: {
-           fontSize: 12,
+        fontSize: 12,
     },
     input: {
         borderWidth: 1,

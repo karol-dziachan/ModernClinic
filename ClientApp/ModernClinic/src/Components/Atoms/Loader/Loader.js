@@ -32,14 +32,7 @@ const styles = StyleSheet.create({
   container: {
     justifyContent: 'center',
     alignItems: 'center',
-    // position: 'fixed',
-    // top: 0,
-    // left: 0,
-    // transform: [{ translateY: -50 }, { translateX: -50 }],
-  },
-  icon: {
-    // Dostosuj styl ikony według preferencji
-  },
+  }
 });
 
 export default Loader;

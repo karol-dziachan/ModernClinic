@@ -1,7 +1,8 @@
-import React, {useState, useEffect} from "react";
-import { StyleSheet, Text, View, TouchableOpacity, Dimensions } from "react-native";
+import React, { useState, useEffect } from "react";
+import { StyleSheet, Text, View, TouchableOpacity, Dimensions, Image } from "react-native";
 import Icon from 'react-native-vector-icons/FontAwesome';
 import MarksDialog from "../../Dialogs/MarksDialog/MarksDialog";
+import exportPhotos from "../../../../assets/doctors/exportPhotos";
 
 const { height: screenHeight, width: screenWidth } = Dimensions.get('window');
 
@@ -11,19 +12,19 @@ const styles = StyleSheet.create({
         paddingTop: 13,
         paddingBottom: 13,
         backgroundColor: 'rgb(237, 237, 237)',
-        width: 0.94*screenWidth,
+        width: 0.94 * screenWidth,
         marginLeft: 'auto',
         marginRight: 'auto',
         marginTop: 18,
         borderRadius: 8
     },
-    photoContainer:{
+    photoContainer: {
 
     },
     detailsContainer: {
         flex: 1,
     },
-    button:{
+    button: {
         backgroundColor: "#17B5FF",
         border: "1px solid white",
         borderRadius: 4,
@@ -34,72 +35,81 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         marginLeft: 'auto',
         marginRight: 'auto'
-  },
+    },
     buttonText: {
-    color: "white",
-    textTransform: 'uppercase',
-    fontSize: 14,
-    letterSpacing: 2,
-    textAlign: "center",
-    fontFamily: "Roboto",
-  },
-  placeholderContainer: {
-    backgroundColor: 'rgb(117, 199, 237)',
-    borderRadius: 8,
-    padding: 40,
-    width: '45%',
-    display: 'flex',
-    justifyContent: "center",
-    alignContent: 'center',
-    alignItems: 'center',
-    marginRight: 10, 
-    flex: 2
-  },
-  detailsContainer:{
-  },
-  flex: {
-    display: 'flex',
-    flexDirection: 'row',
-    marginBottom: 21
-  },
-  doctorText: {
-    fontFamily: "Roboto", 
-    fontSize: 18, 
-    marginBottom: 5
-  },
-  specialityText: {
-      fontFamily: "Roboto", 
-    fontSize: 15, 
-    marginBottom: 5,
-    textTransform: 'uppercase',
-    letterSpacing: 2
-  },
-  doctorDetails: {
-    backgroundColor: 'rgb(234, 204, 196)',
-    borderRadius: 8,
-    paddingLeft: 8,
-    paddingRight: 8,
-    paddingTop: 33,
-    paddingBottom: 33,
-    marginTop: 25
-  },
-  buttonContainer: {
-    display: 'flex',
-    flexDirection: 'row'
-  },
-  detailsHeader: {
-    color: 'rgba(0, 0, 0, .87)',
-    fontSize: 14,
-    fontFamily: "Roboto",
-    textAlign: 'center'
-  },
-  opinionsLength: {
-    color: 'rgba(0, 0, 0, .87)',
-    fontSize: 9,
-    fontFamily: "Roboto",
-    textAlign: 'center'
-  },
-      ratingContainer: {
+        color: "white",
+        textTransform: 'uppercase',
+        fontSize: 14,
+        letterSpacing: 2,
+        textAlign: "center",
+        fontFamily: "Roboto",
+    },
+    placeholderContainer: {
+        backgroundColor: 'rgb(117, 199, 237)',
+        borderRadius: 8,
+        padding: 40,
+        width: '45%',
+        display: 'flex',
+        justifyContent: "center",
+        alignContent: 'center',
+        alignItems: 'center',
+        marginRight: 10,
+        flex: 2,
+        position: 'relative'
+    },
+    photo: {
+        backgroundColor: 'rgb(117, 199, 237)',
+        width: '100%',
+        height: '100%',
+        position: 'absolute',
+        zIndex: 10,
+        borderRadius: 8,
+    },
+    detailsContainer: {
+    },
+    flex: {
+        display: 'flex',
+        flexDirection: 'row',
+        marginBottom: 21
+    },
+    doctorText: {
+        fontFamily: "Roboto",
+        fontSize: 18,
+        marginBottom: 5
+    },
+    specialityText: {
+        fontFamily: "Roboto",
+        fontSize: 15,
+        marginBottom: 5,
+        textTransform: 'uppercase',
+        letterSpacing: 2
+    },
+    doctorDetails: {
+        backgroundColor: 'rgb(234, 204, 196)',
+        borderRadius: 8,
+        paddingLeft: 8,
+        paddingRight: 8,
+        paddingTop: 33,
+        paddingBottom: 33,
+        marginTop: 25
+    },
+    buttonContainer: {
+        display: 'flex',
+        flexDirection: 'row'
+    },
+    detailsHeader: {
+        color: 'rgba(0, 0, 0, .87)',
+        fontSize: 14,
+        fontFamily: "Roboto",
+        textAlign: 'center'
+    },
+    opinionsLength: {
+        color: 'rgba(0, 0, 0, .87)',
+        fontSize: 9,
+        fontFamily: "Roboto",
+        textAlign: 'center'
+    },
+    ratingContainer: {
         flexDirection: 'row',
         justifyContent: 'center',
         marginTop: 8,
@@ -111,15 +121,14 @@ const styles = StyleSheet.create({
     }
 })
 
-export default function ExpertPerson({person, services, setPage}){
-        const [dialogVisible, setDialogVisible] = useState(false);
+export default function ExpertPerson({ person, services, setPage }) {
+    const [dialogVisible, setDialogVisible] = useState(false);
 
-                useEffect(() => {
-        setDialogVisible(false); 
+    useEffect(() => {
+        setDialogVisible(false);
     }, []);
 
     const openDialog = () => {
-        console.log('dialogVisible ', dialogVisible)
         setDialogVisible(true);
     };
 
@@ -127,14 +136,15 @@ export default function ExpertPerson({person, services, setPage}){
         setDialogVisible(false);
     };
 
-        const renderStars = () => {
+
+    const renderStars = () => {
         let stars = [];
         for (let i = 1; i <= 5; i++) {
             var rating = person.rateAvg;
             stars.push(
                 <View key={i}>
                     <Icon
-                       name={'star'}
+                        name={'star'}
                         size={25}
                         color={i <= rating ? '#FDD835' : '#BDBDBD'}
                         style={styles.star}
@@ -147,24 +157,25 @@ export default function ExpertPerson({person, services, setPage}){
 
     return (
         <>
-        <View style={[styles.container]}>
-            <View style={styles.flex}>
-                <View style={person.photo !== null ? styles.photoContainer : styles.placeholderContainer}>
-                    <Icon name="user" size={70} color="white" />
-                </View>
-                <View style={styles.detailsContainer}>
-                    <Text style = {styles.doctorText}>{person.name}</Text>
-                    <Text style = {styles.specialityText}>{person.speciality}</Text>
-                   <View style={styles.doctorDetails}>
-                        <Text style={styles.detailsHeader}>Średnia ocen</Text>
-                         <View style={styles.ratingContainer}>
-                            {renderStars()}
+            <View style={[styles.container]}>
+                <View style={styles.flex}>
+                    <View style={[styles.placeholderContainer, person.photo !== null && { padding: 0 }]}>
+                        {person.photo === null && <Icon name="user" size={70} color="white" />}
+                        {person.photo !== null && <Image source={exportPhotos[person.photo]} style={styles.photo} />}
+                    </View>
+                    <View style={styles.detailsContainer}>
+                        <Text style={styles.doctorText}>{person.name}</Text>
+                        <Text style={styles.specialityText}>{person.speciality}</Text>
+                        <View style={styles.doctorDetails}>
+                            <Text style={styles.detailsHeader}>Średnia ocen</Text>
+                            <View style={styles.ratingContainer}>
+                                {renderStars()}
+                            </View>
+                            <Text style={styles.opinionsLength}>{person.opinions.length} opinii</Text>
                         </View>
-                        <Text style={styles.opinionsLength}>{person.opinions.length} opinii</Text>
-                   </View>
+                    </View>
                 </View>
-            </View>
-      
+
                 <View style={styles.buttonContainer}>
                     <TouchableOpacity style={styles.button} onPress={() => setPage("BookVisitPage")}>
                         <Text style={styles.buttonText}>
@@ -177,8 +188,8 @@ export default function ExpertPerson({person, services, setPage}){
                         </Text>
                     </TouchableOpacity>
                 </View>
-        </View> 
-        <MarksDialog doctorName={person.name} opinions={person.opinions} isVisible={dialogVisible} setModalVisible={closeDialog} /> 
+            </View>
+            <MarksDialog doctorName={person.name} opinions={person.opinions} isVisible={dialogVisible} setModalVisible={closeDialog} />
         </>
     )
 }

@@ -7,14 +7,14 @@ const styles = StyleSheet.create({
     },
     header: {
         fontFamily: "Roboto",
-        fontSize: 22, 
+        fontSize: 22,
         textAlign: 'center',
         color: 'black',
         marginBottom: 20
     },
     menuItemText: {
         fontFamily: "Roboto",
-        fontSize: 16, 
+        fontSize: 16,
         textAlign: 'center',
         color: '#807C7C'
     },
@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
 })
 
 
-export default function UseFulLinks({setPage}){
+export default function UseFulLinks({ setPage }) {
     return (
         <View style={styles.container}>
             <Text style={styles.header}>Przydatne linki</Text>

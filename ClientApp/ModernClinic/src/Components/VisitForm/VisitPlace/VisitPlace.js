@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
     attention: {
         textAlign: 'center',
         color: 'red'
-    },  
+    },
     info: {
         fontSize: 12
     },
@@ -69,7 +69,7 @@ const styles = StyleSheet.create({
         marginBottom: 10,
     },
     switchLabel: {
-           fontSize: 12,
+        fontSize: 12,
     },
     input: {
         borderWidth: 1,

@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 
 import { Text, ScrollView } from "react-native";
 import Menu from "../../Components/MenuComponents/Menu/Menu";
@@ -36,12 +36,12 @@ const tabData = [
     },
 ]
 
-export default function PrivacyPolicyPage({currentPage, setPage}){
+export default function PrivacyPolicyPage({ currentPage, setPage }) {
     return (<ScrollView>
-     <Menu currentPage={currentPage} changePage={setPage} />
-     <Header content="Polityka prywatności – ogólne zasady przetwarzania danych osobowych i ochrony prywatności w Modern Clinic" />
-     <Accordion tabData={tabData} style={{marginBottom: 30}} /> 
-     <Text style={{fontStyle: 'italic', textAlign: 'center', marginTop: 20, paddingLeft: 20, paddingRight: 20}}>Dziękujemy za wybór naszej aplikacji Modern Clinic. Gwarantujemy, że podejmujemy wszelkich starań, aby chronić prywatność naszych użytkowników i zapewnić im bezpieczne oraz przyjemne korzystanie z naszych usług medycznych.</Text>
+        <Menu currentPage={currentPage} changePage={setPage} />
+        <Header content="Polityka prywatności – ogólne zasady przetwarzania danych osobowych i ochrony prywatności w Modern Clinic" />
+        <Accordion tabData={tabData} style={{ marginBottom: 30 }} />
+        <Text style={{ fontStyle: 'italic', textAlign: 'center', marginTop: 20, paddingLeft: 20, paddingRight: 20 }}>Dziękujemy za wybór naszej aplikacji Modern Clinic. Gwarantujemy, że podejmujemy wszelkich starań, aby chronić prywatność naszych użytkowników i zapewnić im bezpieczne oraz przyjemne korzystanie z naszych usług medycznych.</Text>
     </ScrollView>
     )
 }

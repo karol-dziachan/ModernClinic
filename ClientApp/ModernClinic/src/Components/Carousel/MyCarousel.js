@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Image, Dimensions  } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Image, Dimensions } from 'react-native';
 import Carousel from 'react-native-snap-carousel';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import { BlurView } from 'expo-blur';
@@ -7,7 +7,7 @@ import { BlurView } from 'expo-blur';
 const { height: screenHeight, width: screenWidth } = Dimensions.get('window');
 
 const styles = StyleSheet.create({
-    button:{
+  button: {
     backgroundColor: "#17B5FF",
     border: "1px solid white",
     borderRadius: 4,
@@ -16,7 +16,6 @@ const styles = StyleSheet.create({
     margin: "0 auto",
     borderColor: 'white',
     borderWidth: 1
-    // width: 10
   },
   buttonText: {
     color: "white",
@@ -28,17 +27,16 @@ const styles = StyleSheet.create({
   },
   container: {
     marginTop: 23,
-    // flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     position: 'relative',
-    height: 0.8*screenHeight,
-    maxHeight: 0.8*screenHeight
+    height: 0.8 * screenHeight,
+    maxHeight: 0.8 * screenHeight
   },
   slide: {
     backgroundColor: 'white',
     flex: 1,
-    display: "flex", 
+    display: "flex",
     top: 0,
     alignContent: "space-between",
     justifyContent: "space-between",
@@ -47,25 +45,17 @@ const styles = StyleSheet.create({
   },
   slidePic: {
     position: "absolute",
-    // top: 0,
-    // left: 0,
-    // bottom: 0,
-    // right: 0,
   },
   sliderContentContainerBlur: {
-    // position: "fixed",
-    // bottom: 250,
     left: 0,
     height: 400,
-    // bottom: 0,
-    top: 0.8*screenHeight-260, 
+    top: 0.8 * screenHeight - 260,
     padding: 15,
     paddingTop: 60,
     blurRadius: 100,
     width: screenWidth,
     bottom: 0,
     position: "absolute"
-    // filter: [{ blur: 4 }],
   },
   absolute: {
     position: 'absolute',
@@ -74,16 +64,11 @@ const styles = StyleSheet.create({
     right: 0,
     paddingTop: 50,
     paddingBottom: 67,
-    // justifyContent: 'center',
-    // alignItems: 'center',
-    // width: 100,
-    // height: 600,
     backgroundColor: 'rgba(255,255,255,0.5)',
-    // padding: 50
   },
   sliderText: {
     fontFamily: "Roboto",
-    fontSize: 22, 
+    fontSize: 22,
     textAlign: "center",
     color: "#626262",
     textTransform: "uppercase",
@@ -146,40 +131,40 @@ const styles = StyleSheet.create({
 });
 
 const data = [
-  { pic: require('../../../assets/slid1.jpeg'), text: 'Przyjedziemy do ciebie \n do domu', button: {url: "BookVisitPage", title: "Umów wizytę", icon: "calendar-alt"} },
-  { pic: require('../../../assets/slid2.jpeg'), text: 'Tylko w tym miesiącu \n -20% na wszystkie badania', button: {url: "OffersPage", title: "Promocje", icon: ""} },
+  { pic: require('../../../assets/slid1.jpeg'), text: 'Przyjedziemy do ciebie \n do domu', button: { url: "BookVisitPage", title: "Umów wizytę", icon: "calendar-alt" } },
+  { pic: require('../../../assets/slid2.jpeg'), text: 'Tylko w tym miesiącu \n -20% na wszystkie badania', button: { url: "OffersPage", title: "Promocje", icon: "" } },
 ];
 
-const MyCarousel = ({currentPage, setPage}) => {
+const MyCarousel = ({ currentPage, setPage }) => {
   const carouselRef = React.useRef(null);
   const [activeSlide, setActiveSlide] = React.useState(0);
 
   const renderItem = ({ item }) => (
     <View style={styles.slide}>
-        <Image source={item.pic} style={styles.slidePic}/>
+      <Image source={item.pic} style={styles.slidePic} />
       <View style={styles.sliderContentContainer}>
-          <BlurView
-            style={styles.sliderContentContainerBlur}
-            tint="light"
-            intensity={50}
-          >
-            <View>
-                  <Text style={styles.sliderText}>{item.text}</Text>
-            </View>
-            <View style={styles.sliderButtonContainer}>
-              <TouchableOpacity style={styles.button} onPress={() => setPage(item.button.url || "BookVisitPage")}>
-                <View style = {styles.buttonContentContainer}>
-                  <Text style={styles.buttonText}>
-                    {item.button.icon &&  
-                    <Icon name={item.button.icon} style={styles.icon} size={27} color="white" /> 
-                    }
-                    {item.button.icon &&  
+        <BlurView
+          style={styles.sliderContentContainerBlur}
+          tint="light"
+          intensity={50}
+        >
+          <View>
+            <Text style={styles.sliderText}>{item.text}</Text>
+          </View>
+          <View style={styles.sliderButtonContainer}>
+            <TouchableOpacity style={styles.button} onPress={() => setPage(item.button.url || "BookVisitPage")}>
+              <View style={styles.buttonContentContainer}>
+                <Text style={styles.buttonText}>
+                  {item.button.icon &&
+                    <Icon name={item.button.icon} style={styles.icon} size={27} color="white" />
+                  }
+                  {item.button.icon &&
                     <Text>&nbsp;</Text>
-                    }
-                    {item.button.title}
-                  </Text>
-                </View>
-              </TouchableOpacity>
+                  }
+                  {item.button.title}
+                </Text>
+              </View>
+            </TouchableOpacity>
           </View>
         </BlurView>
       </View>

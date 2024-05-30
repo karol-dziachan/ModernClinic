@@ -4,6 +4,7 @@ import UpcommingVisit from "../../Atoms/UpcommingVisit/UpcommingVisit";
 import { StyleSheet } from "react-native";
 import ApiClient from "../../../ApiClient/ApiClient";
 import { View, Text } from "react-native";
+import Loader from "../../Atoms/Loader/Loader";
 
 const upcommingVisitData = {
     visits: [
@@ -12,13 +13,13 @@ const upcommingVisitData = {
             doctor: {
                 name: "dr Anna Lewandowska",
                 speciality: "kardiolog",
-                photo: null 
+                photo: null
             },
             visit: {
                 id: 1,
                 date: '30.06.2024',
                 time: '10:30-11:00',
-                service: 'Konsultacja kardiologiczna', 
+                service: 'Konsultacja kardiologiczna',
                 place: 'ModernClinic POMORSKA, ul. Pomorska 16/39'
             },
         },
@@ -27,13 +28,13 @@ const upcommingVisitData = {
             doctor: {
                 name: "dr Anna Lewandowska",
                 speciality: "kardiolog",
-                photo: null 
+                photo: null
             },
             visit: {
                 id: 1,
                 date: '30.06.2024',
                 time: '10:30-11:00',
-                service: 'Konsultacja kardiologiczna', 
+                service: 'Konsultacja kardiologiczna',
                 place: 'ModernClinic POMORSKA, ul. Pomorska 16/39'
             },
         },
@@ -42,13 +43,13 @@ const upcommingVisitData = {
             doctor: {
                 name: "dr Anna Lewandowska",
                 speciality: "kardiolog",
-                photo: null 
+                photo: null
             },
             visit: {
                 id: 1,
                 date: '30.06.2024',
                 time: '10:30-11:00',
-                service: 'Konsultacja kardiologiczna', 
+                service: 'Konsultacja kardiologiczna',
                 place: 'ModernClinic POMORSKA, ul. Pomorska 16/39'
             },
         },
@@ -57,13 +58,13 @@ const upcommingVisitData = {
             doctor: {
                 name: "dr Anna Lewandowska",
                 speciality: "kardiolog",
-                photo: null 
+                photo: null
             },
             visit: {
                 id: 1,
                 date: '30.06.2024',
                 time: '10:30-11:00',
-                service: 'Konsultacja kardiologiczna', 
+                service: 'Konsultacja kardiologiczna',
                 place: 'ModernClinic POMORSKA, ul. Pomorska 16/39'
             },
         },
@@ -72,13 +73,13 @@ const upcommingVisitData = {
             doctor: {
                 name: "dr Anna Lewandowska",
                 speciality: "kardiolog",
-                photo: null 
+                photo: null
             },
             visit: {
                 id: 1,
                 date: '30.06.2024',
                 time: '10:30-11:00',
-                service: 'Konsultacja kardiologiczna', 
+                service: 'Konsultacja kardiologiczna',
                 place: 'ModernClinic POMORSKA, ul. Pomorska 16/39'
             },
         },
@@ -87,13 +88,13 @@ const upcommingVisitData = {
             doctor: {
                 name: "dr Anna Lewandowska",
                 speciality: "kardiolog",
-                photo: null 
+                photo: null
             },
             visit: {
                 id: 1,
                 date: '30.06.2024',
                 time: '10:30-11:00',
-                service: 'Konsultacja kardiologiczna', 
+                service: 'Konsultacja kardiologiczna',
                 place: 'ModernClinic POMORSKA, ul. Pomorska 16/39'
             },
         },
@@ -106,37 +107,35 @@ const styles = StyleSheet.create({
     }
 })
 
-export default function Visits(){
+export default function Visits() {
     const [upcommingVisitData, setUpcommingVisitData] = useState({});
     const [loading, setLoading] = useState(true);
     const apiClient = new ApiClient();
-        useEffect(async () => {
-            try {
-                const upcommingVisitData = await apiClient.get('/api/visits/get-all-visits'); 
-                setUpcommingVisitData(upcommingVisitData);
-
-                console.log('visits data - ', upcommingVisitData)
-                setLoading(false);
-            } catch (error) {
-                console.error('Błąd podczas pobierania danych:', error);
-        }   
+    useEffect(async () => {
+        try {
+            const upcommingVisitData = await apiClient.get('/api/visits/get-all-visits');
+            setUpcommingVisitData(upcommingVisitData);
+            setLoading(false);
+        } catch (error) {
+            console.error('Error during fetching data (Visits):', error);
+        }
 
     }, []);
 
-    return(
-       !loading ?   <>
-            <Header content={"Nadchodzące wizyty"} /> 
+    return (
+        !loading ? <>
+            <Header content={"Nadchodzące wizyty"} />
             {
                 upcommingVisitData.visits.filter(item => !item.past).map((item) =>
-                <UpcommingVisit style={styles.marginBottom} upcommingVisitData={item}/>
-            )
+                    <UpcommingVisit style={styles.marginBottom} upcommingVisitData={item} />
+                )
             }
-            <Header content={"Odbyte wizyty"}   /> 
-                {
+            <Header content={"Odbyte wizyty"} />
+            {
                 upcommingVisitData.visits.filter(item => item.past).map((item) =>
-                <UpcommingVisit style={styles.marginBottom} upcommingVisitData={item}/>
-            )
+                    <UpcommingVisit style={styles.marginBottom} upcommingVisitData={item} />
+                )
             }
-        </> : <View><Text>Ładowanie</Text></View>
+        </> : <Loader />
     )
 }

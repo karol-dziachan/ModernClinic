@@ -4,7 +4,7 @@ import Opinion from '../../Atoms/Opinion/Opinion';
 
 const { height: screenHeight, width: screenWidth } = Dimensions.get('window');
 
-const MarksDialog = ({  opinions, doctorName, isVisible, setModalVisible }) => {
+const MarksDialog = ({ opinions, doctorName, isVisible, setModalVisible }) => {
 
     const closeDialog = () => {
         setModalVisible(false);
@@ -27,9 +27,9 @@ const MarksDialog = ({  opinions, doctorName, isVisible, setModalVisible }) => {
                     <ScrollView styles={styles.scroll}>
                         <Text style={styles.modalText}>Opinie o {doctorName}</Text>
                         <View style={styles.opinionsContainer}>
-                            {opinions.map((item) => 
-                            <Opinion mark={item.mark} title = {item.title} comment = {item.comment} />
-                        )}
+                            {opinions.map((item) =>
+                                <Opinion mark={item.mark} title={item.title} comment={item.comment} />
+                            )}
                         </View>
                         <TouchableOpacity style={styles.confirmButton} onPress={handleCancel}>
                             <Text style={styles.buttonText}>OK</Text>
@@ -56,10 +56,10 @@ const styles = StyleSheet.create({
         padding: 35
     },
     modalView: {
-        paddingTop: 20, 
-        paddingBottom: 20, 
-        paddingLeft: 10, 
-        paddingRight : 10, 
+        paddingTop: 20,
+        paddingBottom: 20,
+        paddingLeft: 10,
+        paddingRight: 10,
         margin: 20,
         backgroundColor: 'white',
         borderRadius: 20,
@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.25,
         shadowRadius: 4,
         elevation: 5,
-        width: 0.8*screenWidth
+        width: 0.8 * screenWidth
 
     },
     modalText: {

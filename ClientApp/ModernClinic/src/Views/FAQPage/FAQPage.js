@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 
 import { Text, ScrollView } from "react-native";
 import Menu from "../../Components/MenuComponents/Menu/Menu";
@@ -36,13 +36,13 @@ const tabData = [
     },
 ]
 
-export default function FAQPage({currentPage, setPage}){
+export default function FAQPage({ currentPage, setPage }) {
     return (<ScrollView>
-     <Menu currentPage={currentPage} changePage={setPage} />
-     <Header content="Polityka prywatności – ogólne zasady przetwarzania danych osobowych i ochrony prywatności w Modern Clinic" />
-     <Accordion tabData={tabData} style={{marginBottom: 30}} /> 
-     <Text style={{fontWeight:'600', textAlign: 'center', marginTop: 20, paddingLeft: 20, paddingRight: 20}}>Jeśli chcesz zadać więcej pytań, skontaktuj się z nami (szczegóły w sekcji „Kontakt”), a nasi przedstawiciele postarają się rozwiać wszelkie wątpliwości.</Text>
-     <Text style={{fontStyle: 'italic', textAlign: 'center', marginTop: 20, paddingLeft: 20, paddingRight: 20}}>Dziękujemy za korzystanie z aplikacji Modern Clinic.</Text>
+        <Menu currentPage={currentPage} changePage={setPage} />
+        <Header content="Najczęściej Zadawane Pytania (FAQ) dotyczące korzystania z aplikacji Modern Clinic" />
+        <Accordion tabData={tabData} style={{ marginBottom: 30 }} />
+        <Text style={{ fontWeight: '600', textAlign: 'center', marginTop: 20, paddingLeft: 20, paddingRight: 20 }}>Jeśli chcesz zadać więcej pytań, skontaktuj się z nami (szczegóły w sekcji „Kontakt”), a nasi przedstawiciele postarają się rozwiać wszelkie wątpliwości.</Text>
+        <Text style={{ fontStyle: 'italic', textAlign: 'center', marginTop: 20, paddingLeft: 20, paddingRight: 20 }}>Dziękujemy za korzystanie z aplikacji Modern Clinic.</Text>
     </ScrollView>
     )
 }

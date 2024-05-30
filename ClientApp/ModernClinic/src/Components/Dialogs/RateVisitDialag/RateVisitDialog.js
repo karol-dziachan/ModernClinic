@@ -18,20 +18,15 @@ const RateVisitDialog = ({ visitId, isVisible, setModalVisible }) => {
     };
 
     const handleConfirm = async () => {
-        let visit = await apiClient.get('/api/visits/'+visitId)
-        console.log('wizyta - ', visit?.doctor?.id);
+        let visit = await apiClient.get('/api/visits/' + visitId)
         let data = {
             title: title,
-            description: comment, 
-            comment: comment, 
-            mark: rating, 
+            description: comment,
+            comment: comment,
+            mark: rating,
             doctorId: visit?.doctor?.id
         }
         await apiClient.post('/api/marks', data);
-        console.log("Wysłano ocenę:");
-        console.log("Ocena: ", rating);
-        console.log("Tytuł: ", title);
-        console.log("Komentarz: ", comment);
 
         closeDialog();
     };
@@ -64,7 +59,7 @@ const RateVisitDialog = ({ visitId, isVisible, setModalVisible }) => {
             visible={isVisible}
             onRequestClose={closeDialog}
         >
-            <BlurView 
+            <BlurView
                 style={styles.centeredView}
                 tint="light"
                 intensity={50}
@@ -128,7 +123,7 @@ const styles = StyleSheet.create({
         padding: 10,
         alignItems: 'center',
         backgroundColor: '#EDEDED',
-        width: 0.9*screenWidth,
+        width: 0.9 * screenWidth,
         paddingTop: 0,
         paddingBottom: 35
     },

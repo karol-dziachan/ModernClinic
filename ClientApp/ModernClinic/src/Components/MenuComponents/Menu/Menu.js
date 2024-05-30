@@ -1,9 +1,10 @@
-import React, {useState, useEffect} from "react";
-import { View, StatusBar, SafeAreaView, StyleSheet, Image, Animated, Dimensions } from 'react-native';
+import React, { useState, useEffect, useContext } from "react";
+import { View, StatusBar, SafeAreaView, StyleSheet, Image, Animated, Dimensions, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import Hamburger from "../Hamburger/Hamburger";
 import ToggleMenu from "../ToggleMenu/ToggleMenu";
-// import toggleMenu from "../../Functions/toggleMenu";
+import { TokenContext } from "../../../../App";
+import LogOutScreen from "../../../Views/LoginScreen/LogoutScreen";
 
 const screenWidth = Dimensions.get('window').width;
 
@@ -39,36 +40,39 @@ const styles = StyleSheet.create({
 });
 
 
-function Menu({currentPage, changePage}){
-      const [menuWidth, setMenuWidth] = useState(new Animated.Value(screenWidth));
-      const [initMenu, setInitMenu] = useState(false);
+function Menu({ currentPage, changePage }) {
+  const [menuWidth, setMenuWidth] = useState(new Animated.Value(screenWidth));
+  const [initMenu, setInitMenu] = useState(false);
+  const [logout, setLougout] = useState(false);
+  const token = useContext(TokenContext);
 
-    const toggleMenu = () => {
-        const toValue = menuWidth._value === 0 ? screenWidth : 0;
-        Animated.timing(menuWidth, {
-            toValue,
-            duration: 300,
-            useNativeDriver: false
-        }).start();
+  const toggleMenu = () => {
+    const toValue = menuWidth._value === 0 ? screenWidth : 0;
+    Animated.timing(menuWidth, {
+      toValue,
+      duration: 300,
+      useNativeDriver: false
+    }).start();
+  }
+
+  useEffect(() => {
+    if (!initMenu) {
+      toggleMenu();
+      setInitMenu(true);
     }
+  });
 
-      useEffect(() => {
-        if(!initMenu){
-          toggleMenu();
-          setInitMenu(true);
-        }
-    });
-
-    return (
-      <>
-        <SafeAreaView  style={styles.container}>
-         <View><Hamburger onPress={toggleMenu}/></View>
-         <View style={styles.logoContainer}><Image source={require('../../../../assets/modernclinicmenu.png')} style={styles.logo}/></View>
-         <View style={styles.account}><Icon name="user-alt" size={30} color="white" /></View>
-        </SafeAreaView >
-        <ToggleMenu currentPage={currentPage} changePage={changePage} toggleFun={toggleMenu} menuWidth={menuWidth}/>
-      </>
-    );
+  return (
+    <>
+      {logout && <LogOutScreen setToken={token.setToken} />}
+      <SafeAreaView style={styles.container}>
+        <View><Hamburger onPress={toggleMenu} /></View>
+        <TouchableOpacity onPress={() => changePage('HomePage')} style={styles.logoContainer}><Image source={require('../../../../assets/modernclinicmenu.png')} style={styles.logo} /></TouchableOpacity>
+        <TouchableOpacity onPress={() => setLougout(true)} style={styles.account}><Icon name="sign-out-alt" size={30} color="white" /></TouchableOpacity>
+      </SafeAreaView >
+      <ToggleMenu currentPage={currentPage} changePage={changePage} toggleFun={toggleMenu} menuWidth={menuWidth} />
+    </>
+  );
 }
 
 export default Menu;

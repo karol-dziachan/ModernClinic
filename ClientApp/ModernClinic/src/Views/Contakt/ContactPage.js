@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, View, Text , Dimensions, TouchableOpacity, Linking} from "react-native";
+import { StyleSheet, View, Text, Dimensions, TouchableOpacity, Linking } from "react-native";
 import Menu from "../../Components/MenuComponents/Menu/Menu";
 import Header from "../../Components/Header/Header";
 
@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
         marginBottom: 5
     },
     containerContact: {
-        width: 0.8*screenWidth,
+        width: 0.8 * screenWidth,
         marginLeft: 'auto',
         marginRight: 'auto',
     },
@@ -23,21 +23,21 @@ const styles = StyleSheet.create({
         paddingLeft: 20,
         paddingRight: 20,
     },
-        bar: {
-        marginTop: 15, 
-        width: 0.9*screenWidth
+    bar: {
+        marginTop: 15,
+        width: 0.9 * screenWidth
         ,
-        height: 1, 
+        height: 1,
         backgroundColor: 'rgba(98, 98, 98, 0.4)',
-        marginLeft: -0.05*screenWidth,
+        marginLeft: -0.05 * screenWidth,
         // marginRight: "auto",
     },
     url: {
-        color:'#17B5FF',
+        color: '#17B5FF',
     }
 })
 
-export default function ContactPage({currentPage, setPage}){
+export default function ContactPage({ currentPage, setPage }) {
     const handlePhoneCall = () => {
         Linking.openURL("tel:+ 48 012 345 678"); // Podaj właściwy numer telefonu
     };
@@ -50,7 +50,7 @@ export default function ContactPage({currentPage, setPage}){
     return (
         <View >
             <Menu currentPage={currentPage} changePage={setPage} />
-            <Header content = {"Kontakt"}/>
+            <Header content={"Kontakt"} />
             <View style={styles.containerContact}>
                 <View style={styles.itemContainer}>
                     <Text style={styles.text}>Dane firmy:</Text>
@@ -67,7 +67,7 @@ export default function ContactPage({currentPage, setPage}){
                 </View>
                 <View style={styles.bar}></View>
                 <View style={styles.itemContainer}>
-                    <Text style={styles.text}>Adres e-mail: <TouchableOpacity onPress={handleEmail} style={{display: 'flex', alignItems: 'center', alignContent: 'center', justifyContent: 'center', marginBottom: -10}}><Text style={styles.url}>modern@clinic.pl</Text></TouchableOpacity></Text>
+                    <Text style={styles.text}>Adres e-mail: <TouchableOpacity onPress={handleEmail} style={{ display: 'flex', alignItems: 'center', alignContent: 'center', justifyContent: 'center', marginBottom: -10 }}><Text style={styles.url}>modern@clinic.pl</Text></TouchableOpacity></Text>
                     <Text style={styles.text}>Telefon: <TouchableOpacity onPress={handlePhoneCall}><Text style={styles.url}>+ 48 012 345 678</Text></TouchableOpacity></Text>
                     <Text style={styles.text}>Dostępność recepcji telefonicznej od poniedziałku do soboty w godzinach 08:00 - 18:00</Text>
                 </View>

@@ -1,10 +1,23 @@
 import axios from 'axios';
-
+import { TokenContext } from '../../App';
+import { useContext } from 'react';
+import Host from '../Globals/Host';
 class ApiClient {
-    constructor(baseURL = "http://192.168.0.188:8080") {
+
+    constructor(baseURL = `http://${Host}`) {
+        this.token = useContext(TokenContext);
         this.api = axios.create({
             baseURL,
-            timeout: 5000, // opcjonalnie: ustawienie maksymalnego czasu oczekiwania na odpowiedź
+            timeout: 5000,
+            withCredentials: false,
+            headers: {
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
+                'User-Agent': 'PostmanRuntime/7.29.0',
+                'Accept': '*/*',
+                'Accept-Encoding': 'gzip, deflate, br',
+                'Authorization': "Bearer " + this.token.token
+            }
         });
     }
 

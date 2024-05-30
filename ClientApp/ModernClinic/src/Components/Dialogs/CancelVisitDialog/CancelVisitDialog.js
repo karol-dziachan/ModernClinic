@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, Modal, StyleSheet } from 'react-native';
 import ApiClient from '../../../ApiClient/ApiClient';
 
-const CancelVisitDialog = ({ visitId, isVisible, setModalVisible }) => {
+const CancelVisitDialog = ({ visitId, isVisible, setModalVisible, setOpacity }) => {
     const apiClient = new ApiClient()
 
     const closeDialog = () => {
@@ -10,8 +10,9 @@ const CancelVisitDialog = ({ visitId, isVisible, setModalVisible }) => {
     };
 
     const handleCancel = async () => {
-        console.log('call - ', `/api/visits/${visitId}`)
+        console.info('CancelVisitDialog - call - ', `/api/visits/${visitId}`)
         await apiClient.delete(`/api/visits/${visitId}`);
+        setOpacity(true);
         closeDialog();
     };
 

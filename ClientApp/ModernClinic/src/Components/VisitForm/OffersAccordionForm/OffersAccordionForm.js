@@ -1,5 +1,5 @@
 import React, { useState, useRef } from "react";
-import { View, Text, TouchableOpacity, Dimensions,  FlatList, Animated, Easing, StyleSheet, LayoutAnimation, Platform, UIManager } from "react-native";
+import { View, Text, TouchableOpacity, Dimensions, FlatList, Animated, Easing, StyleSheet, LayoutAnimation, Platform, UIManager } from "react-native";
 import Icon from 'react-native-vector-icons/Ionicons';
 
 
@@ -19,7 +19,7 @@ const OffersAccordionForm = ({ offersData, offersCategories, setService }) => {
     setExpanded({ ...expanded, [index]: !expanded[index] });
   };
 
-    const rotateIcon = (index) => {
+  const rotateIcon = (index) => {
     const toValue = expanded[index] ? 1 : 0;
     Animated.timing(
       animatedValues[index],
@@ -32,11 +32,11 @@ const OffersAccordionForm = ({ offersData, offersCategories, setService }) => {
     ).start();
   };
 
-  const renderAccordionItem = ({ item, index }) => {
+  const renderAccordionItem = ({ item, index, isNfzAccordion }) => {
     const isExpanded = expanded[index];
     const filteredOffers = offersData.filter((offer) => offer.category === item.id);
 
-        if (!animatedValues[index]) {
+    if (!animatedValues[index]) {
       animatedValues[index] = new Animated.Value(0);
     }
 
@@ -51,16 +51,16 @@ const OffersAccordionForm = ({ offersData, offersCategories, setService }) => {
       <View style={styles.container}>
         <TouchableOpacity style={styles.header} onPress={() => toggleAccordion(index)}>
           <Text style={styles.headerText}>{item.name}</Text>
-            <Animated.View style={{ transform: [{ rotate: spin }] }}>
+          <Animated.View style={{ transform: [{ rotate: spin }] }}>
             <Icon name='chevron-down' size={10} color="black" />
           </Animated.View>
         </TouchableOpacity>
         {isExpanded && (
           <View style={styles.expandedContainer}>
             {filteredOffers.map((offer) => (
-              <TouchableOpacity onPress={() => {setService({id: offer.id, name: offer.name}); toggleAccordion(index)}}>
+              <TouchableOpacity onPress={() => { setService({ id: offer.id, name: offer.name }); toggleAccordion(index) }}>
                 <View key={offer.name} style={styles.offerContainer}>
-                  <Text style={styles.accordionContent}><Icon name='checkmark-outline' size={10} color="black" style={styles.markIcon} /> {offer.name} {offer.promo && <Text style={styles.promo}> {offer.promo} </Text>}</Text>
+                  <Text style={styles.accordionContent}><Icon name='checkmark-outline' size={10} color="black" style={styles.markIcon} /> {offer.name} {offer.promo && !isNfzAccordion && <Text style={styles.promo}> {offer.promo} </Text>} {offer.price && !isNfzAccordion && <Text style={styles.price}> {offer.price} zł</Text>}</Text>
                 </View>
               </TouchableOpacity>
             ))}
@@ -85,15 +85,15 @@ const styles = StyleSheet.create({
   accordionContent: {
     fontSize: 10,
   },
-    accordionContainer: {
-        marginTop: 15,
-        marginLeft: 'auto',
-        marginRight: 'auto',
-        paddingLeft: 0,
-    },
-    headerText: {
-      fontSize: 11
-    },
+  accordionContainer: {
+    marginTop: 15,
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    paddingLeft: 0,
+  },
+  headerText: {
+    fontSize: 11
+  },
   header: {
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -102,7 +102,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: '#ccc',
     marginBottom: 10,
-     fontSize: 10
+    fontSize: 10
   },
   expandedContainer: {
     overflow: 'hidden',
@@ -112,7 +112,7 @@ const styles = StyleSheet.create({
     marginBottom: 2
   },
   container: {
-    width: 0.8*screenWidth,
+    width: 0.8 * screenWidth,
   },
   markIcon: {
     marginRight: 5
@@ -120,6 +120,10 @@ const styles = StyleSheet.create({
   promo: {
     fontWeight: "600",
     color: '#FF0000'
+  },
+  price: {
+    fontWeight: "600",
+    color: 'black'
   }
 });
 

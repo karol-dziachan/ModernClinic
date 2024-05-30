@@ -4,11 +4,11 @@ import { View, ScrollView } from "react-native";
 import BookVisit from "../../Components/MainViews/BookVisit/BookVisit";
 import Header from "../../Components/Header/Header";
 
-export default function BookVisitPage({currentPage, setPage}){
+export default function BookVisitPage({ currentPage, setPage }) {
     return (
         <ScrollView>
             <Menu currentPage={currentPage} changePage={setPage} />
-            <Header content={"Umów wizytę"}/>
+            <Header content={"Umów wizytę"} />
             <BookVisit />
         </ScrollView>
     )
