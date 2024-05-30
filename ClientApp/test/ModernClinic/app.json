@@ -1,0 +1,42 @@
+{
+  "expo": {
+    "name": "ModernClinic",
+    "slug": "ModernClinic",
+    "scheme": "com.auth0samples",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.auth0samples"
+    },
+    "android": {
+      "package": "com.auth0samples",
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
+      }
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      [
+        "react-native-auth0",
+        {
+          "domain": "dev-ybphej2xq6gl61hx.us.auth0.com",
+          "customScheme": "com.auth0samples"
+        }
+      ]
+    ]
+  }
+}

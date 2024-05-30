@@ -1,0 +1,1 @@
+export default 'Modern Clinic, ul. Zmyślona 20/24';
