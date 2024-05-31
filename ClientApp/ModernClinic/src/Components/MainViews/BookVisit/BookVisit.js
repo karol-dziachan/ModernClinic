@@ -28,8 +28,9 @@ export default function BookVisit() {
         if (service !== null && service !== undefined) {
             console.info('Service changed:', service);
             setTabData(prevTabData => {
+                const text = service ? `Wybrano usługę: ${service.name} ` : 'Usługa ' + isNfz ? 'Wizyta na NFZ.' : 'Wizyta prywatna'
                 const updatedTabData = [...prevTabData];
-                updatedTabData[0].Header = service ? `Wybrano usługę: ${service.name}` : 'Usługa';
+                updatedTabData[0].Header = text;
                 return updatedTabData;
             });
         }
@@ -54,11 +55,11 @@ export default function BookVisit() {
             updatedTabData[3].Header = isHomeVisit ? `Wizyta w domu ` : `Wizyta w placówce`;
             return updatedTabData;
         });
-        setTabData(prevTabData => {
-            const updatedTabData = [...prevTabData];
-            updatedTabData[4].Header = isNfz ? `Wizyta na NFZ` : `Wizyta prywatna`;
-            return updatedTabData;
-        });
+        // setTabData(prevTabData => {
+        //     const updatedTabData = [...prevTabData];
+        //     updatedTabData[4].Header = isNfz ? `Wizyta na NFZ` : `Wizyta prywatna`;
+        //     return updatedTabData;
+        // });
 
 
         if (service !== null && service !== undefined) {
@@ -109,7 +110,7 @@ export default function BookVisit() {
     const [tabData, setTabData] = useState([
         {
             Header: 'Usługa',
-            Content: <OffersForm setService={setService} style={{ paddingLeft: 10, paddingRight: 10 }} />
+            Content: <OffersForm setService={setService} setIsNfz={setIsNfz} setRefferalNumber={setRefferalNumber} style={{ paddingLeft: 10, paddingRight: 10 }} />
         },
         {
             Header: 'Specjalista',
@@ -123,10 +124,10 @@ export default function BookVisit() {
             Header: 'Miejsce wizyty',
             Content: <VisitPlace setAddress={setAddress} setIsHomeVisit={setIsHomeVisit} />
         },
-        {
-            Header: 'Finansowanie wizyty',
-            Content: <IsNfz setRefferalNumber={setRefferalNumber} setIsNfz={setIsNfz} />
-        },
+        // {
+        //     Header: 'Finansowanie wizyty',
+        //     Content: <IsNfz setRefferalNumber={setRefferalNumber} setIsNfz={setIsNfz} />
+        // },
     ]);
 
     const sendForm = async () => {

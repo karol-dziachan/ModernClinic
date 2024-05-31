@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, Linking } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
 import { WebView } from 'react-native-webview';
 import Host from '../../Globals/Host';
 
@@ -29,6 +29,9 @@ export default function LoginScreen({ setToken }) {
                 !showLogin &&
                 <View style={styles.container}>
                     <View style={styles.content}>
+                        <View style={{ marginBottom: 20 }}>
+                            <Image source={require('../../../assets/modernclinicmenu.png')} />
+                        </View>
                         <Text style={styles.text}>Do korzystania z aplikacji Modern Clinic, musisz się zalogować</Text>
                         <TouchableOpacity style={styles.button} onPress={handleLoginPress}>
                             <Text style={styles.buttonText}>Zaloguj się</Text>

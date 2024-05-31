@@ -57,6 +57,7 @@ class ApiClient {
             const response = await this.api.delete(endpoint);
             return response.data;
         } catch (error) {
+            console.error('error during deletingh data - (ApiClient): ', error)
             throw error;
         }
     }

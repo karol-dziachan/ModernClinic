@@ -1,16 +1,14 @@
 import React, { useState, useRef } from "react";
-import { View, Text, TouchableOpacity, Dimensions, FlatList, Animated, Easing, StyleSheet, LayoutAnimation, Platform, UIManager } from "react-native";
+import { View, TextInput, Text, TouchableOpacity, Dimensions, FlatList, Animated, Easing, StyleSheet, LayoutAnimation, Platform, UIManager } from "react-native";
 import Icon from 'react-native-vector-icons/Ionicons';
 
-
 const { height: screenHeight, width: screenWidth } = Dimensions.get('window');
-
 
 if (Platform.OS === 'android' && UIManager.setLayoutAnimationEnabledExperimental) {
   UIManager.setLayoutAnimationEnabledExperimental(true);
 }
 
-const OffersAccordionForm = ({ offersData, offersCategories, setService }) => {
+const OffersAccordionForm = ({ offersData, offersCategories, isNfzAccordion, setService, setIsNfz, setRefferalNumber }) => {
   const [expanded, setExpanded] = useState({});
   const animatedValues = useRef({}).current;
 
@@ -32,7 +30,7 @@ const OffersAccordionForm = ({ offersData, offersCategories, setService }) => {
     ).start();
   };
 
-  const renderAccordionItem = ({ item, index, isNfzAccordion }) => {
+  const renderAccordionItem = ({ item, index }) => {
     const isExpanded = expanded[index];
     const filteredOffers = offersData.filter((offer) => offer.category === item.id);
 
@@ -58,7 +56,7 @@ const OffersAccordionForm = ({ offersData, offersCategories, setService }) => {
         {isExpanded && (
           <View style={styles.expandedContainer}>
             {filteredOffers.map((offer) => (
-              <TouchableOpacity onPress={() => { setService({ id: offer.id, name: offer.name }); toggleAccordion(index) }}>
+              <TouchableOpacity onPress={() => { setService({ id: offer.id, name: offer.name }); toggleAccordion(index); setIsNfz(isNfzAccordion); }}>
                 <View key={offer.name} style={styles.offerContainer}>
                   <Text style={styles.accordionContent}><Icon name='checkmark-outline' size={10} color="black" style={styles.markIcon} /> {offer.name} {offer.promo && !isNfzAccordion && <Text style={styles.promo}> {offer.promo} </Text>} {offer.price && !isNfzAccordion && <Text style={styles.price}> {offer.price} zł</Text>}</Text>
                 </View>
@@ -72,6 +70,17 @@ const OffersAccordionForm = ({ offersData, offersCategories, setService }) => {
 
   return (
     <View style={styles.accordionContainer}>
+      {
+        isNfzAccordion &&
+        <View>
+          <Text style={styles.label}>Numer skierowania:</Text>
+          <TextInput
+            style={styles.input}
+            onChangeText={(text) => setRefferalNumber(text)}
+          />
+
+        </View>
+      }
       <FlatList
         data={offersCategories}
         keyExtractor={(item) => item.id.toString()}
@@ -82,6 +91,17 @@ const OffersAccordionForm = ({ offersData, offersCategories, setService }) => {
 };
 
 const styles = StyleSheet.create({
+  label: {
+    fontSize: 12,
+    marginBottom: 5,
+  },
+  input: {
+    borderWidth: 1,
+    borderColor: "#ccc",
+    borderRadius: 5,
+    padding: 10,
+    marginBottom: 10,
+  },
   accordionContent: {
     fontSize: 10,
   },

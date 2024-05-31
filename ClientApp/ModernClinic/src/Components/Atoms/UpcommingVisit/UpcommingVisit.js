@@ -108,6 +108,14 @@ const styles = StyleSheet.create({
         zIndex: 10,
         borderRadius: 8,
     },
+    emptyVisitText: {
+        fontFamily: "Roboto",
+        fontSize: 18,
+        marginTop: 5,
+        textAlign: 'center',
+        paddingLeft: 10,
+        paddingRight: 10,
+    }
 })
 
 export default function UpcommingVisit({ upcommingVisitData }) {
@@ -140,46 +148,51 @@ export default function UpcommingVisit({ upcommingVisitData }) {
 
     return (
         <>
-            <View style={[styles.container, upcommingVisitData.past || isOpacity && styles.pastVisit]}>
-                <View style={styles.flex}>
-                    <View style={[styles.placeholderContainer, upcommingVisitData.doctor.photo !== null && { padding: 0 }]}>
-                        {upcommingVisitData.doctor.photo === null && <Icon name="user" size={70} color="white" />}
-                        {upcommingVisitData.doctor.photo !== null && <Image source={exportPhotos[upcommingVisitData.doctor.photo]} style={styles.photo} />}
-                    </View>
-                    <View style={styles.detailsContainer}>
-                        <Text style={styles.doctorText}>{upcommingVisitData.doctor.name}</Text>
-                        <Text style={styles.specialityText}>{upcommingVisitData.doctor.speciality}</Text>
-                        <View style={styles.serviceDetails}>
-                            <Text style={styles.serviceTime}>{upcommingVisitData.visit.date}, {upcommingVisitData.visit.time}</Text>
-                            <Text style={styles.service}>{upcommingVisitData.visit.service}</Text>
-                            <Text style={styles.servicePlace}>Miejsce: {upcommingVisitData.visit.place}</Text>
+            {upcommingVisitData &&
+                <View style={[styles.container, (upcommingVisitData.past || isOpacity) && styles.pastVisit]}>
+                    <View style={styles.flex}>
+                        <View style={[styles.placeholderContainer, upcommingVisitData.doctor.photo !== null && { padding: 0 }]}>
+                            {upcommingVisitData.doctor.photo === null && <Icon name="user" size={70} color="white" />}
+                            {upcommingVisitData.doctor.photo !== null && <Image source={exportPhotos[upcommingVisitData.doctor.photo]} style={styles.photo} />}
+                        </View>
+                        <View style={styles.detailsContainer}>
+                            <Text style={styles.doctorText}>{upcommingVisitData.doctor.name}</Text>
+                            <Text style={styles.specialityText}>{upcommingVisitData.doctor.speciality}</Text>
+                            <View style={styles.serviceDetails}>
+                                <Text style={styles.serviceTime}>{upcommingVisitData.visit.date}, {upcommingVisitData.visit.time}</Text>
+                                <Text style={styles.service}>{upcommingVisitData.visit.service}</Text>
+                                <Text style={styles.servicePlace}>Miejsce: {upcommingVisitData.visit.place}</Text>
+                            </View>
                         </View>
                     </View>
-                </View>
-                {
-                    !upcommingVisitData.past &&
-                    <View style={styles.buttonContainer}>
-                        <TouchableOpacity style={styles.button} onPress={openDialog}>
-                            <Text style={styles.buttonText}>
-                                Odwołaj wizytę
-                            </Text>
-                        </TouchableOpacity>
-                    </View>
-                }
-                {
-                    upcommingVisitData.past &&
-                    <View style={styles.buttonContainer}>
-                        <TouchableOpacity style={styles.button} onPress={openRateDialog}>
-                            <Text style={styles.buttonText}>
-                                Oceń wizytę
-                            </Text>
-                        </TouchableOpacity>
-                    </View>
-                }
+                    {
+                        !upcommingVisitData.past &&
+                        <View style={styles.buttonContainer}>
+                            <TouchableOpacity style={styles.button} onPress={openDialog}>
+                                <Text style={styles.buttonText}>
+                                    Odwołaj wizytę
+                                </Text>
+                            </TouchableOpacity>
+                        </View>
+                    }
+                    {
+                        upcommingVisitData.past &&
+                        <View style={styles.buttonContainer}>
+                            <TouchableOpacity style={styles.button} onPress={openRateDialog}>
+                                <Text style={styles.buttonText}>
+                                    Oceń wizytę
+                                </Text>
+                            </TouchableOpacity>
+                        </View>
+                    }
 
-            </View>
-            <CancelVisitDialog visitId={upcommingVisitData.visit.id} isVisible={dialogVisible} setModalVisible={closeDialog} setOpacity={setIsOpacity} />
-            <RateVisitDialog visitId={upcommingVisitData.visit.id} isVisible={rateDialogVisible} setModalVisible={closeRateDialog} />
+                </View>}
+            {
+                !upcommingVisitData &&
+                <Text style={styles.emptyVisitText}> Nie zapisałeś się jeszcze na żadną wizytę. </Text>
+            }
+            {upcommingVisitData && <CancelVisitDialog visitId={upcommingVisitData.visit.id} isVisible={dialogVisible} setModalVisible={closeDialog} setOpacity={setIsOpacity} />}
+            {upcommingVisitData && <RateVisitDialog visitId={upcommingVisitData.visit.id} isVisible={rateDialogVisible} setModalVisible={closeRateDialog} />}
         </>
     )
 }
