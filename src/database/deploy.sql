@@ -6,6 +6,8 @@ DROP TABLE  marks CASCADE;
 DROP TABLE  offer_categories CASCADE;
 DROP TABLE  time_table CASCADE;
 DROP TABLE  doctors_timetables CASCADE;
+DROP TABLE  offers CASCADE;
+DROP TABLE  visits CASCADE;
 
 CREATE TABLE IF NOT EXISTS services (
    id BIGSERIAL PRIMARY KEY,
@@ -25,6 +27,7 @@ CREATE TABLE IF NOT EXISTS doctors (
     degree VARCHAR(150),
     degree_short VARCHAR (50),
     speciality_id BIGINT NOT NULL,
+    picture VARCHAR(150),
     FOREIGN KEY (speciality_id) REFERENCES specialities(id)
     );
 
@@ -69,7 +72,7 @@ CREATE TABLE IF NOT EXISTS time_table(
     date DATE NOT NULL,
     start_time TIME NOT NULL,
     end_time TIME NOT NULL
-    )
+    );
 
 CREATE TABLE IF NOT EXISTS doctors_timetables (
                                                 doctor_id BIGINT NOT NULL,
@@ -88,6 +91,7 @@ CREATE TABLE IF NOT EXISTS visits(
     doctor_id BIGINT NOT NULL,
     time_table_id BIGINT NOT NULL,
     service_id BIGINT NOT NULL,
+    user_id varchar(100) NOT NULL,
     FOREIGN KEY (doctor_id) REFERENCES doctors(id),
     FOREIGN KEY (time_table_id) REFERENCES time_table(id),
     FOREIGN KEY (service_id) REFERENCES services(id)

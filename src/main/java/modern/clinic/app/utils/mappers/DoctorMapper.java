@@ -17,11 +17,12 @@ public class DoctorMapper {
         return GetAvailableSpecialistDto.builder()
                 .id(doctor.getId())
                 .name(doctor.getDegreeShort() + " " + doctor.getFirstName() + " " + doctor.getLastName())
+                .photo(doctor.getPicture())
                 .availableOffers(doctor.getServices().stream()
                         .map(service -> service.getId().intValue())
                         .collect(Collectors.toList()))
-                .availableTime(doctor.getVisits().stream()
-                        .map(visit -> visit.getTimeTable().getId().intValue())
+                .availableTime(doctor.getTimeTables().stream()
+                        .map(timeTable -> timeTable.getId().intValue())
                         .collect(Collectors.toList()))
                 .build();
     }
@@ -35,6 +36,7 @@ public class DoctorMapper {
                 .name(name)
                 .speciality(doctor.getSpeciality().getName())
                 .rateAvg(rateAvg)
+                .photo(doctor.getPicture())
                 .services(getServiceIds(doctor.getServices()))
                 .opinions(mapToMarkDtos(doctor.getMarks()))
                 .build();

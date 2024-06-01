@@ -5,14 +5,13 @@ import lombok.RequiredArgsConstructor;
 import modern.clinic.app.persistence.datatransferobjects.visit.GetAllVisitsDto;
 import modern.clinic.app.persistence.datatransferobjects.visit.GetUpcommingVisitDto;
 import modern.clinic.app.persistence.datatransferobjects.visit.PostVisitDto;
-import modern.clinic.app.persistence.entities.TimeTable;
 import modern.clinic.app.persistence.entities.Visit;
 import modern.clinic.app.persistence.repository.DoctorRepository;
 import modern.clinic.app.persistence.repository.ServiceRepository;
 import modern.clinic.app.persistence.repository.TimeTableRepository;
 import modern.clinic.app.persistence.repository.VisitRepository;
+import modern.clinic.app.utils.jwt.JwtDecodeDto;
 import modern.clinic.app.utils.mappers.VisitMapper;
-import org.hibernate.exception.DataException;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -52,7 +51,7 @@ public class VisitService {
         repository.deleteById(id);
     }
 
-    public Visit bookVisit(PostVisitDto dto) throws Exception {
+    public Visit bookVisit(PostVisitDto dto, JwtDecodeDto decodeTokenDto) throws Exception {
         var doctor = doctorRepository.findById(dto.getDoctorId());
 
         if(doctor.isEmpty()){
@@ -65,9 +64,9 @@ public class VisitService {
             throw new EntityNotFoundException("TimeTable not found");
         }
 
-        if (existsTimeTable.get().getDoctors().contains(doctor.orElse(null))) {
-            throw new Exception("This timetable is assign to this doctor already");
-        }
+//        if (existsTimeTable.get().getDoctors().contains(doctor.orElse(null))) {
+//            throw new Exception("This timetable is assign to this doctor already");
+//        }
 
         var service = serviceRepository.findById(dto.getServiceId());
 
@@ -83,21 +82,45 @@ public class VisitService {
                 .place(dto.getPlace())
                 .isNfz(dto.isNfz())
                 .refferalNumber(dto.getRefferalNumber())
+                .userId(decodeTokenDto.getPayload().getSub())
                 .build();
 
         return repository.save(visit);
     }
 
-    public GetAllVisitsDto getAllVisits(){
+    public GetAllVisitsDto getAllVisits(JwtDecodeDto decodeTokenDto){
         var visits = repository.findAll();
+
+        if(visits.isEmpty()){
+            return null;
+        }
+
+        var filteredVisits = visits
+                .stream()
+                .filter(visit -> visit.getUserId().equals(decodeTokenDto.getPayload().getSub()))
+                .collect(Collectors.toList());
 
         return VisitMapper.mapToGetAllVisitsDto(visits);
     }
 
-    public GetUpcommingVisitDto getTheNearestVisit(){
-        var visits = repository.findAll();
+    public GetUpcommingVisitDto getTheNearestVisit(JwtDecodeDto decodeTokenDto){
+        var visitsAll = repository.findAll();
+
+        if(visitsAll.isEmpty()){
+            return null;
+        }
+
+        var visits = visitsAll
+                .stream()
+                .filter(visit -> visit.getUserId().equals(decodeTokenDto.getPayload().getSub()))
+                .collect(Collectors.toList());
+
         sortVisitsByDateAndTime(visits);
         var nearestVisit = findFutureVisit(visits);
+
+        if(nearestVisit == null){
+            return null;
+        }
 
         return VisitMapper.mapToGetUpcommingVisitDto(nearestVisit);
     }

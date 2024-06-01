@@ -1,12 +1,13 @@
-TRUNCATE TABLE services CASCADE;
-TRUNCATE TABLE specialities CASCADE;
-TRUNCATE TABLE doctors CASCADE;
-TRUNCATE TABLE doctors_services CASCADE;
-TRUNCATE TABLE marks CASCADE;
-TRUNCATE TABLE offer_categories CASCADE;
-TRUNCATE TABLE time_table CASCADE;
-TRUNCATE TABLE doctors_timetables CASCADE;
-TRUNCATE TABLE visits CASCADE;
+TRUNCATE TABLE services RESTART IDENTITY  CASCADE ;
+TRUNCATE TABLE specialities RESTART IDENTITY  CASCADE ;
+TRUNCATE TABLE doctors RESTART IDENTITY  CASCADE ;
+TRUNCATE TABLE doctors_services RESTART IDENTITY  CASCADE ;
+TRUNCATE TABLE marks RESTART IDENTITY  CASCADE ;
+TRUNCATE TABLE offer_categories RESTART IDENTITY  CASCADE ;
+TRUNCATE TABLE time_table RESTART IDENTITY  CASCADE ;
+TRUNCATE TABLE doctors_timetables RESTART IDENTITY  CASCADE ;
+TRUNCATE TABLE visits RESTART IDENTITY  CASCADE ;
+TRUNCATE TABLE offers RESTART IDENTITY CASCADE;
 
 -- INSERT INTO services (service_name) VALUES
 --     ('Service 1'),
@@ -81,30 +82,30 @@ INSERT INTO specialities (speciality_name) VALUES
                                                ('Lekarz rodzinny'),
                                                ('Dermatolog');
 
-INSERT INTO doctors (doctor_first_name, doctor_last_name, degree, degree_short, speciality_id) VALUES
-                                                                                                  ('Anna', 'Lewandowska', 'Doktor', 'dr', 1),
-                                                                                                  ('Joanna', 'Smugacz', 'Doktor', 'dr', 1),
-                                                                                                  ('Anna', 'Talent', 'Doktor', 'dr', 2),
-                                                                                                  ('Marzena', 'Antczak', 'Doktor', 'dr', 2),
-                                                                                                  ('Małgorzata', 'Marach', 'Doktor', 'dr', 3),
-                                                                                                  ('Patrycja', 'Kwiatkowska', 'Doktor', 'dr', 3),
-                                                                                                  ('Alicja', 'Szczypkowska', 'Doktor', 'dr', 4),
-                                                                                                  ('Marta', 'Kopiec', 'Doktor', 'dr', 4),
-                                                                                                  ('Arkadiusz', 'Chrapkowski', 'Doktor', 'dr', 5),
-                                                                                                  ('Gabriel', 'Godek', 'Doktor', 'dr', 5),
-                                                                                                  ('Kamil', 'Spyrka', 'Doktor', 'dr', 6),
-                                                                                                  ('Wioletta', 'Wasilewska', 'Doktor', 'dr', 6),
-                                                                                                  ('Zenon', 'Romaniuk', 'Doktor', 'dr', 7),
-                                                                                                  ('Adrianna', 'Kulik', 'Doktor', 'dr', 7),
-                                                                                                  ('Łucja', 'Wasilewska', 'Doktor', 'dr', 8),
-                                                                                                  ('Sebastian', 'Jachachan', 'Doktor', 'dr', 8),
-                                                                                                  ('Pamela', 'Urbanowicz', 'Doktor', 'dr', 9),
-                                                                                                  ('Zofia', 'Styrna', 'Doktor', 'dr', 9),
-                                                                                                  ('Magdalena', 'Szukała', 'Doktor', 'dr', 10),
-                                                                                                  ('Maria', 'Wałaszek', 'Doktor', 'dr', 10),
-                                                                                                  ('Michał', 'Agatanek', 'Doktor', 'dr', 10),
-                                                                                                  ('Michał', 'Mazurek', 'Doktor', 'dr', 11),
-                                                                                                  ('Wiktoria', 'Jedlińska', 'Doktor', 'dr', 11);
+INSERT INTO doctors (doctor_first_name, doctor_last_name, degree, degree_short, speciality_id, picture) VALUES
+                                                                                                  ('Anna', 'Lewandowska', 'Doktor', 'dr', 1, 'AnnaLewandowska.jpg'),
+                                                                                                  ('Joanna', 'Smugacz', 'Doktor', 'dr', 1, 'JoannaSmugacz.jpg'),
+                                                                                                  ('Anna', 'Talent', 'Doktor', 'dr', 2, 'AnnaTalent.jpg'),
+                                                                                                  ('Marzena', 'Antczak', 'Doktor', 'dr', 2, 'MarzenaAntczak.jpg'),
+                                                                                                  ('Małgorzata', 'Marach', 'Doktor', 'dr', 3, 'MalgorzataMarach.jpg'),
+                                                                                                  ('Patrycja', 'Kwiatkowska', 'Doktor', 'dr', 3, 'PatrycjaKwiatkowska.jpg'),
+                                                                                                  ('Alicja', 'Szczypkowska', 'Doktor', 'dr', 4, 'AlicjaSzczypkowska.jpg'),
+                                                                                                  ('Marta', 'Kopiec', 'Doktor', 'dr', 4, 'MartaKopiec.jpg'),
+                                                                                                  ('Arkadiusz', 'Chrapkowski', 'Doktor', 'dr', 5, 'ArkadiuszChrapkowski.jpg'),
+                                                                                                  ('Gabriel', 'Godek', 'Doktor', 'dr', 5, 'GabrielGodek.jpg'),
+                                                                                                  ('Kamil', 'Spyrka', 'Doktor', 'dr', 6, 'KamilSpyrka.jpg'),
+                                                                                                  ('Wioletta', 'Wasilewska', 'Doktor', 'dr', 6, 'WiolettaWasilewska.jpg'),
+                                                                                                  ('Zenon', 'Romaniuk', 'Doktor', 'dr', 7, 'ZenonRomaniuk.jpg'),
+                                                                                                  ('Adrianna', 'Kulik', 'Doktor', 'dr', 7, 'AdriannaKulik.jpg'),
+                                                                                                  ('Łucja', 'Wasilewska', 'Doktor', 'dr', 8, 'LucjaWasilewska.jpg'),
+                                                                                                  ('Sebastian', 'Jachachan', 'Doktor', 'dr', 8, 'SebastianJachachan.jpg'),
+                                                                                                  ('Pamela', 'Urbanowicz', 'Doktor', 'dr', 9, null),
+                                                                                                  ('Zofia', 'Styrna', 'Doktor', 'dr', 9, null),
+                                                                                                  ('Magdalena', 'Szukała', 'Doktor', 'dr', 10, null),
+                                                                                                  ('Maria', 'Wałaszek', 'Doktor', 'dr', 10, null),
+                                                                                                  ('Michał', 'Agatanek', 'Doktor', 'dr', 10, 'MichalAgatanek.jpg'),
+                                                                                                  ('Michał', 'Mazurek', 'Doktor', 'dr', 11, 'MichalMazurek.jpg'),
+                                                                                                  ('Wiktoria', 'Jedlińska', 'Doktor', 'dr', 11, null);
 
 INSERT INTO doctors_services (doctor_id, service_id) VALUES
                                                          (1, 1),  (1, 2),  (1, 3),  (1, 4),  (1, 5),  (2, 1),  (2, 2),  (2, 3),  (2, 4),  (2, 5),  (3, 6), (3, 7), (3, 8), (3, 9), (3, 10), (4, 6), (4, 7), (4, 8), (4, 9), (4, 10), (5, 11), (5, 12), (5, 13), (5, 14), (5, 15), (6, 11), (6, 12), (6, 13), (6, 14), (6, 15), (7, 16), (7, 17), (7, 18), (7, 19), (7, 20), (8, 16), (8, 17), (8, 18), (8, 19), (8, 20), (9, 21), (9, 22), (9, 23), (9, 24), (9, 25), (10, 21), (10, 22), (10, 23), (10, 24), (10, 25), (11, 26), (11, 27), (11, 28), (12, 26), (12, 27), (12, 28), (13, 29), (13, 30), (13, 31), (13, 32), (13, 33), (13, 34), (13, 35), (14, 29), (14, 30), (14, 31), (14, 32), (14, 33), (14, 34), (14, 35), (15, 36), (15, 37), (15, 38), (15, 39), (16, 36), (16, 37), (16, 38), (16, 39), (17, 40), (17, 41), (17, 42), (17, 43), (18, 40), (18, 41), (18, 42), (18, 43), (19, 44), (19, 45), (19, 46), (19, 47), (19, 48), (19, 49), (20, 44), (20, 45), (20, 46), (20, 47), (20, 48), (20, 49), (21, 44), (21, 45), (21, 46), (21, 47), (21, 48), (21, 49), (22, 50), (22, 51), (22, 52), (22, 53), (22, 54), (22, 55), (23, 50), (23, 51), (23, 52), (23, 53), (23, 54), (23, 55);
@@ -615,7 +616,7 @@ INSERT INTO time_table (date, start_time, end_time) VALUES
                                                         ('2024-03-22', '08:00:00', '08:20:00'),
                                                         ('2024-03-22', '15:00:00', '15:30:00'),
                                                         ('2024-03-22', '16:00:00', '17:30:00'),
-                                                        ('2024-03-22', '20:00:00', '20:15:00');
+                                                        ('2026-03-22', '20:00:00', '20:15:00');
 
 INSERT INTO doctors_timetables (doctor_id, timetable_id) VALUES
     (1, 1), (1, 2), (1, 3), (1, 4), (1, 5), (1, 6), (1, 7), (1, 8), (1, 9), (1, 10), (1, 11), (1, 12), (1, 13), (1, 22), (1, 23), (1, 24), (1, 25), (1, 26), (1, 27), (1, 28), (1, 29), (1, 30), (1, 31), (1, 44), (1, 45), (1, 46), (1, 47), (1, 48), (1, 49), (1, 50), (1, 51), (1, 52), (1, 53), (1, 54), (1, 55), (1, 57), (1, 58), (1, 59), (1, 60), (1, 61), (1, 74), (1, 75), (1, 76), (1, 77), (1, 78), (1, 79), (1, 80), (1, 81), (1, 82), (1, 83), (1, 84), (1, 85), (1, 86), (1, 87), (1, 88), (1, 89), (1, 90), (1, 91), (1, 92), (1, 93), (1, 105), (1, 106), (1, 107), (1, 108), (1, 109), (1, 110), (1, 111), (1, 112), (1, 113), (1, 114), (1, 115), (1, 122), (1, 123), (1, 124), (1, 125), (1, 126), (1, 127), (1, 128), (1, 129), (1, 130), (1, 131), (1, 132), (1, 133), (1, 134), (1, 135),
@@ -643,12 +644,12 @@ INSERT INTO doctors_timetables (doctor_id, timetable_id) VALUES
     (23, 1), (23, 2), (23, 3), (23, 4), (23, 5), (23, 6), (23, 7), (23, 29), (23, 30), (23, 31), (23, 44), (23, 45), (23, 46), (23, 47), (23, 74), (23, 75), (23, 82), (23, 83), (23, 84), (23, 85), (23, 86), (23, 87), (23, 88), (23, 89), (23, 90), (23, 91), (23, 92), (23, 93), (23, 105), (23, 106), (23, 111), (23, 112), (23, 113), (23, 114), (23, 115), (23, 122), (23, 123), (23, 124), (23, 129), (23, 130), (23, 131), (23, 132), (23, 133), (23, 134), (23, 135);
 
 
-INSERT INTO visits (is_home, place, is_nfz, refferal_number, doctor_id, time_table_id, service_id) VALUES
-    (false, 'ModernClinic POMORSKA, ul. Pomorska 16/39', false, NULL, 1, 57, 1), 
-    (true, 'Łódź, ul. Białostocka 14/32', false, NULL, 1, 58, 1), 
-    (true, 'Łódź, ul. Białostocka 14/32', false, NULL, 1, 59, 1), 
-    (false, 'ModernClinic POMORSKA, ul. Pomorska 16/39', false, NULL, 1, 60, 1), 
-    (false, 'ModernClinic POMORSKA, ul. Pomorska 16/39', false, NULL, 1, 61, 1), 
-    (false, 'ModernClinic POMORSKA, ul. Pomorska 16/39', false, NULL, 2, 135, 1), 
-    (false, 'ModernClinic POMORSKA, ul. Pomorska 16/39', false, NULL, 2, 134, 1), 
-    (false, 'ModernClinic POMORSKA, ul. Pomorska 16/39', false, NULL, 2, 133, 1);
+INSERT INTO visits (is_home, place, is_nfz, refferal_number, doctor_id, time_table_id, service_id, user_id) VALUES
+    (false, 'ModernClinic, ul. Zmyślona 20/24', false, NULL, 1, 57, 1, 'auth0|66561b0fa6666512e3897794'),
+    (true, 'Łódź, ul. Białostocka 14/32', false, NULL, 1, 58, 1, 'auth0|66561b0fa6666512e3897794'),
+    (true, 'Łódź, ul. Białostocka 14/32', false, NULL, 1, 59, 1, 'auth0|66561b0fa6666512e3897794'),
+    (false, 'ModernClinic, ul. Zmyślona 20/24', false, NULL, 1, 60, 1, 'auth0|66561b0fa6666512e3897794'),
+    (false, 'ModernClinic, ul. Zmyślona 20/24', false, NULL, 1, 61, 1, 'auth0|66561b0fa6666512e3897794'),
+    (false, 'ModernClinic, ul. Zmyślona 20/24', false, NULL, 2, 135, 1, 'auth0|66561b0fa6666512e3897794'),
+    (false, 'ModernClinic, ul. Zmyślona 20/24', false, NULL, 2, 134, 1, 'auth0|66561b0fa6666512e3897794'),
+    (false, 'ModernClinic, ul. Zmyślona 20/24', false, NULL, 2, 133, 1, 'auth0|66561b0fa6666512e3897794');

@@ -6,6 +6,8 @@ import modern.clinic.app.persistence.datatransferobjects.visit.GetUpcommingVisit
 import modern.clinic.app.persistence.datatransferobjects.visit.PostVisitDto;
 import modern.clinic.app.persistence.entities.Visit;
 import modern.clinic.app.persistence.service.VisitService;
+import modern.clinic.app.utils.jwt.JwtDecoder;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -67,8 +69,12 @@ public class VisitController {
     }
 
     @PostMapping("/book-visit")
-    public ResponseEntity<Visit> bookVisit(@RequestBody PostVisitDto visits) throws Exception {
-        Visit visit = visitsService.bookVisit(visits);
+    public ResponseEntity<Visit> bookVisit(@RequestHeader(HttpHeaders.AUTHORIZATION) String authorizationHeader, @RequestBody PostVisitDto visits) throws Exception {
+        String token = authorizationHeader.replace("Bearer ", "");
+
+        var decodeTokenDto = JwtDecoder.parseJWT(token);
+
+        Visit visit = visitsService.bookVisit(visits, decodeTokenDto);
         if (visit != null) {
             return new ResponseEntity<>(HttpStatus.OK);
         } else {
@@ -77,8 +83,12 @@ public class VisitController {
     }
 
     @GetMapping("/get-all-visits")
-    public ResponseEntity<GetAllVisitsDto> getAllVisitsForPatient() {
-        var visits = visitsService.getAllVisits();
+    public ResponseEntity<GetAllVisitsDto> getAllVisitsForPatient(@RequestHeader(HttpHeaders.AUTHORIZATION) String authorizationHeader) throws Exception {
+        String token = authorizationHeader.replace("Bearer ", "");
+
+        var decodeTokenDto = JwtDecoder.parseJWT(token);
+
+        var visits = visitsService.getAllVisits(decodeTokenDto);
         if (visits != null) {
             return new ResponseEntity<>(visits, HttpStatus.OK);
         } else {
@@ -87,12 +97,15 @@ public class VisitController {
     }
 
     @GetMapping("/get-nearest-visit")
-    public ResponseEntity<GetUpcommingVisitDto> getNearestVisitForPatient() {
-        var visit = visitsService.getTheNearestVisit();
+    public ResponseEntity<GetUpcommingVisitDto> getNearestVisitForPatient(@RequestHeader(HttpHeaders.AUTHORIZATION) String authorizationHeader) throws Exception {
+        String token = authorizationHeader.replace("Bearer ", "");
+
+        var decodeTokenDto = JwtDecoder.parseJWT(token);
+        var visit = visitsService.getTheNearestVisit(decodeTokenDto);
         if (visit != null) {
             return new ResponseEntity<>(visit, HttpStatus.OK);
         } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(null, HttpStatus.OK);
         }
     }
 

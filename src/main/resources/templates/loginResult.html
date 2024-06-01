@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Login Result</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        .message {
+            display: none;
+            font-size: 1.5em;
+            margin: 20px;
+            padding: 20px;
+            border-radius: 5px;
+        }
+        .success {
+            color: #155724;
+            background-color: #d4edda;
+            border: 1px solid #c3e6cb;
+        }
+        .error {
+            color: #721c24;
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
+        }
+    </style>
+</head>
+<body>
+<div class="message success">
+    Udało się zalogować, możesz zamknąć stronę.
+</div>
+<div class="message error">
+    Błąd podczas logowania, spróbuj później.
+</div>
+
+<script th:inline="javascript">
+    /* <![CDATA[ */
+
+    document.addEventListener("DOMContentLoaded", function() {
+        // Pobranie fragmentu URL
+        var urlFragment = window.location.hash.substring(1);
+
+        // Splitowanie fragmentu po "&"
+        var pairs = urlFragment.split("&");
+
+        // Przetwarzanie par klucz=wartość
+        var idTokenFound = false;
+        var idTokenValue = null;
+        for (var i = 0; i < pairs.length; i++) {
+            var keyValue = pairs[i].split("=");
+            if (keyValue.length === 2) {
+                var key = decodeURIComponent(keyValue[0]);
+                var value = decodeURIComponent(keyValue[1]);
+
+                // Sprawdzanie czy istnieje klucz id_token i czy nie jest pusty
+                if (key === "id_token" && value !== "") {
+                    idTokenFound = true;
+                    idTokenValue = value;
+                    break;
+                }
+            }
+        }
+
+        // Wyświetlanie odpowiedniego diva na podstawie wyników
+        if (idTokenFound) {
+            document.querySelector(".message.success").style.display = "block";
+
+            // Ustawienie ciasteczka
+            document.cookie = "id_token=" + idTokenValue + "; path=/";
+        } else {
+            document.querySelector(".message.error").style.display = "block";
+        }
+    });
+
+    /* ]]> */
+</script>
+</body>
+</html>

@@ -1,17 +1,17 @@
-package modern.clinic.app.utils;
+package modern.clinic.app;
 import com.auth0.jwt.interfaces.Claim;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import modern.clinic.app.WebConfig;import org.slf4j.Logger;
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.Map;
 
 public class TokenUtils {
 
-    private static final Logger logger = LoggerFactory.getLogger(WebConfig.TokenUtils.class);
+    private static final Logger logger = LoggerFactory.getLogger(TokenUtils.class);
 
     /**
      * Get the JWT claims as a JSON string.

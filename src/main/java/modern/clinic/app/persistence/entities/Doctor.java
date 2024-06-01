@@ -63,4 +63,8 @@ public class Doctor {
     @JsonIgnoreProperties("doctor")
     @JsonIgnore
     private List<Visit> visits;
+
+    @Column(name="picture", length=150, nullable=true, unique=false)
+    private String picture;
+
 }

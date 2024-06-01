@@ -24,5 +24,5 @@ public class PersonDto{
     private Long rateAvg;
     private List<Integer> services;
     private List<MarkDto> opinions;
-    public String photo = null;
+    public String photo;
 }

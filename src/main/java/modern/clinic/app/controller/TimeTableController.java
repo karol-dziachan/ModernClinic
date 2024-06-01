@@ -74,4 +74,14 @@ public class TimeTableController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
+
+    @GetMapping("/available-time-table/{id}")
+    public ResponseEntity<List<GetAvailableTimeTableDto>> getAvailableTimeTablesByDoctorId(@PathVariable Long id) {
+        var data = timeTableService.getAvailableTimeTablesByDoctorId(id);
+        if (data != null) {
+            return new ResponseEntity<>(data, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
 }
